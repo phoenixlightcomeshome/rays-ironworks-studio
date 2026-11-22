@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { ImageOff } from 'lucide-react';
 
+/**
+ * Resolves a root-relative asset path (e.g. "/images/foo.jpg") against the
+ * Vite base (import.meta.env.BASE_URL — "/rays-ironworks-studio/" on GitHub
+ * Pages) so images load when the app is served from a subpath. Absolute
+ * URLs, data: URLs and relative paths pass through untouched.
+ */
+export function resolveAssetPath(src: string): string {
+  if (!src.startsWith('/')) return src;
+  const base = import.meta.env.BASE_URL ?? '/';
+  return `${base.replace(/\/$/, '')}${src}`;
+}
+
 interface ResilientImageProps {
   src: string;
   alt: string;
@@ -8,6 +20,7 @@ interface ResilientImageProps {
   loading?: 'eager' | 'lazy';
   onClick?: () => void;
 }
+
 
 export function ResilientImage({
   src,
@@ -17,6 +30,7 @@ export function ResilientImage({
   onClick,
 }: ResilientImageProps) {
   const [failed, setFailed] = useState(false);
+
 
   if (failed) {
     return (
@@ -31,9 +45,10 @@ export function ResilientImage({
     );
   }
 
+
   return (
     <img
-      src={src}
+      src={resolveAssetPath(src)}
       alt={alt}
       loading={loading}
       referrerPolicy="no-referrer"
