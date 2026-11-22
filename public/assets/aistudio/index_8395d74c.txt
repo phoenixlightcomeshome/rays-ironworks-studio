@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ray's Ironworks — Custom Fabrication &amp; Metal Art</title>
+<meta name="description" content="Ray's Ironworks — custom ironwork, gates, railings, sculpture and architectural metalwork by Ray Mroczkowski. Reno / Tahoe / Truckee and Los Angeles. Commissions welcome.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0e10; --panel:#161618; --panel2:#1c1c1f; --line:#2a2a2e;
+    --gold:#C9883D; --gold-bright:#E8A317; --text:#F2EFE8; --muted:#a8a29a;
+    --max:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6}
+  img{max-width:100%;display:block}
+  a{color:var(--gold-bright)}
+  h1,h2,h3{font-family:Oswald,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.04em;line-height:1.15;margin:0 0 .5em}
+  h2{font-size:clamp(1.7rem,4vw,2.4rem);color:var(--text)}
+  h2 .rule{display:block;width:64px;height:3px;background:var(--gold);margin-top:.35em}
+  p{margin:0 0 1em}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+  section{padding:72px 0}
+  .eyebrow{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.22em;font-size:.8rem;color:var(--gold);margin-bottom:.6em}
+  .lede{font-size:1.15rem;color:#d8d2c8;max-width:720px}
+  .small{font-size:.92rem;color:var(--muted)}
+  .honest{background:#1a1409;border:1px solid #4a3a18;border-radius:10px;padding:16px 18px;color:#e6d9b8;font-size:.95rem}
+  .honest b{color:var(--gold-bright)}
+
+  /* Nav */
+  header{position:sticky;top:0;z-index:50;background:rgba(14,14,16,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:var(--max);margin:0 auto;padding:12px 20px}
+  .brand{font-family:Oswald,sans-serif;font-weight:700;font-size:1.25rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text);text-decoration:none;white-space:nowrap}
+  .brand span{color:var(--gold)}
+  .nav nav{display:flex;gap:4px;flex-wrap:wrap}
+  .nav nav a{color:#cfc9bf;text-decoration:none;font-size:.95rem;padding:8px 10px;border-radius:6px}
+  .nav nav a:hover{color:var(--gold-bright);background:#1e1e21}
+  .nav .fb{color:#fff;background:#1877F2;text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 14px;border-radius:6px;white-space:nowrap}
+  .nav .fb:hover{background:#0f66d0}
+  @media (max-width:760px){ .nav nav{display:none} }
+
+  /* Hero */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;padding:0 0 64px;color:#fff;
+    background:linear-gradient(180deg,rgba(10,10,12,.25) 0%,rgba(10,10,12,.55) 55%,rgba(14,14,16,1) 100%),url("images/wingfield-gates-installed.jpg") center 38%/cover no-repeat #111}
+  .hero .wrap{width:100%}
+  .hero h1{font-size:clamp(2.8rem,9vw,5.6rem);margin:.1em 0 .15em;text-shadow:0 2px 24px rgba(0,0,0,.7)}
+  .hero h1 span{color:var(--gold-bright)}
+  .hero .tag{font-size:clamp(1.15rem,2.6vw,1.5rem);font-weight:600;max-width:640px;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+  .hero .places{color:#e8ddc9;margin-top:.7em;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;font-family:Oswald,sans-serif}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;text-decoration:none;font-weight:700;padding:13px 24px;border-radius:8px;font-size:1rem;cursor:pointer;border:none;font-family:inherit}
+  .btn-gold{background:var(--gold);color:#141210}
+  .btn-gold:hover{background:var(--gold-bright)}
+  .btn-ghost{border:2px solid #cfc9bf;color:#fff;background:transparent}
+  .btn-ghost:hover{border-color:var(--gold-bright);color:var(--gold-bright)}
+  .btn-small{padding:9px 16px;font-size:.92rem}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
+  @media (max-width:820px){ .about-grid{grid-template-columns:1fr} }
+  .about-grid figure{margin:0}
+  .about-grid img{border-radius:10px;border:1px solid var(--line)}
+  .about-grid figcaption{color:var(--muted);font-size:.9rem;margin-top:8px}
+  blockquote{margin:1.4em 0;padding:.4em 0 .4em 18px;border-left:3px solid var(--gold);font-style:italic;color:#ddd6c9;font-size:1.12rem}
+  .creds{list-style:none;padding:0;margin:1.2em 0 0;display:grid;gap:6px}
+  .creds li{padding-left:22px;position:relative;color:#d8d2c8}
+  .creds li::before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:.7em;top:.35em}
+
+  /* Services */
+  #services{background:var(--panel)}
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:28px}
+  .svc{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .svc h3{color:var(--gold-bright);font-size:1.25rem}
+  .svc p{color:#cfc9bf;margin:0}
+  .svc-note{margin-top:26px;color:var(--muted)}
+  .helper-link{background:none;border:none;color:var(--gold-bright);font:inherit;font-size:.92rem;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+
+  /* Projects */
+  .proj{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;padding:34px 0;border-bottom:1px solid var(--line)}
+  .proj:last-child{border-bottom:none}
+  .proj:nth-child(even) .proj-img{order:2}
+  @media (max-width:820px){ .proj{grid-template-columns:1fr} .proj:nth-child(even) .proj-img{order:0} }
+  .proj-img img{border-radius:10px;border:1px solid var(--line);width:100%}
+  .proj-img.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .proj h3{font-size:1.55rem}
+  .proj .meta{color:var(--gold);font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.85rem;margin-bottom:.5em}
+  .proj p{color:#d5cfc5}
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  @media (max-width:640px){ .trio{grid-template-columns:1fr} }
+  .trio figure{margin:0}
+  .trio img{border-radius:8px;border:1px solid var(--line);width:100%}
+  .trio figcaption{color:var(--muted);font-size:.88rem;margin-top:6px}
+
+  /* Gallery */
+  #gallery{background:var(--panel)}
+  .gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+  .gal figure{margin:0;background:var(--panel2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .gal img{width:100%;height:220px;object-fit:cover}
+  .gal figcaption{padding:12px 14px;color:#cfc9bf;font-size:.95rem}
+  .gal figcaption b{color:var(--text)}
+  .gal-ask{margin-top:22px}
+
+  /* Quote & 3D */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 0}
+  .tab{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:.95rem;background:var(--panel2);color:#cfc9bf;border:1px solid var(--line);border-radius:8px;padding:10px 16px;cursor:pointer}
+  .tab[aria-selected="true"]{background:var(--gold);color:#141210;border-color:var(--gold)}
+  .draw-panel{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:24px;margin-top:14px}
+  .draw-panel.active{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:start}
+  @media (max-width:820px){ .draw-panel.active{grid-template-columns:1fr} }
+  .draw-panel svg{width:100%;height:auto;background:#101012;border:1px solid var(--line);border-radius:8px}
+  .draw-panel h3{color:var(--gold-bright);font-size:1.3rem}
+  .draw-panel ul{margin:.4em 0 1em;padding-left:20px;color:#d5cfc5}
+  .draw-panel ul li{margin-bottom:.3em}
+  .viewer-box{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:24px;margin-top:26px}
+  .viewer-box h3{color:var(--gold-bright)}
+  #gate3d{width:100%;height:380px;display:block;border-radius:8px;background:#101012;border:1px solid var(--line)}
+  .viewer-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:18px}
+  .viewer-controls label{display:block;font-size:.9rem;color:var(--muted);margin-bottom:4px}
+  .viewer-controls input[type=range]{width:100%;accent-color:var(--gold)}
+  .viewer-controls select{width:100%;padding:9px;border-radius:6px;background:#101012;color:var(--text);border:1px solid var(--line);font:inherit}
+  .viewer-readout{font-family:Oswald,sans-serif;letter-spacing:.06em;color:var(--gold-bright);margin-top:10px}
+
+  /* Quote form */
+  .quote-form{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:26px;margin-top:26px}
+  .quote-form h3{color:var(--gold-bright)}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:640px){ .form-grid{grid-template-columns:1fr} }
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field.full{grid-column:1 / -1}
+  .field label{font-size:.9rem;color:var(--muted);font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.1em}
+  .field input,.field select,.field textarea{padding:11px 12px;border-radius:7px;background:#101012;color:var(--text);border:1px solid var(--line);font:inherit;font-size:1rem}
+  .field textarea{min-height:110px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+  .drop{border:2px dashed #4a4a50;border-radius:10px;padding:22px;text-align:center;color:var(--muted);cursor:pointer}
+  .drop:hover,.drop.over{border-color:var(--gold);color:var(--text)}
+  .drop input{display:none}
+  .thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .thumbs figure{margin:0;width:110px}
+  .thumbs img{width:110px;height:82px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+  .thumbs figcaption{font-size:.78rem;color:var(--muted);word-break:break-all;margin-top:4px}
+  .thumbs button{background:none;border:none;color:#e07856;cursor:pointer;font-size:.8rem;padding:2px 0}
+  .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+  .form-status{margin-top:14px;font-size:.95rem}
+  .form-status.ok{color:#9ed69a}
+  .form-status.warn{color:#e8c97a}
+
+  /* Digital art */
+  .art-note{display:flex;gap:24px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:26px;flex-wrap:wrap}
+  .art-note p{margin:0;flex:1;min-width:240px;color:#d5cfc5}
+
+  /* Contact */
+  #contact{background:linear-gradient(180deg,#141416,#0e0e10)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+  @media (max-width:820px){ .contact-grid{grid-template-columns:1fr} }
+  .contact-card{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:26px}
+  .contact-card h3{color:var(--gold-bright)}
+  .contact-card a.big{display:block;font-size:1.25rem;font-weight:700;color:var(--text);text-decoration:none;margin:.2em 0 .6em}
+  .contact-card a.big:hover{color:var(--gold-bright)}
+  .contact-card .lbl{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.14em;font-family:Oswald,sans-serif}
+  footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:.95rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* Helper widget */
+  #helper-fab{position:fixed;right:18px;bottom:18px;z-index:90;background:var(--gold);color:#141210;border:none;border-radius:999px;padding:13px 20px;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.5);font-family:Oswald,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+  #helper-fab:hover{background:var(--gold-bright)}
+  #helper-panel{position:fixed;right:18px;bottom:82px;z-index:90;width:min(380px,calc(100vw - 36px));max-height:min(560px,calc(100vh - 110px));display:none;flex-direction:column;background:#17171a;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+  #helper-panel.open{display:flex}
+  #helper-panel header{position:static;background:#1e1e21;border-bottom:1px solid var(--line);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  #helper-panel header b{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.06em}
+  #helper-panel header span{display:block;font-size:.82rem;color:var(--muted);font-family:"Source Sans 3",sans-serif;text-transform:none;letter-spacing:0}
+  #helper-close{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:4px 8px}
+  #helper-log{padding:14px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;flex:1}
+  .msg{max-width:88%;padding:10px 13px;border-radius:12px;font-size:.96rem;line-height:1.45}
+  .msg.bot{background:#232327;color:#eee8db;border-bottom-left-radius:4px;align-self:flex-start}
+  .msg.user{background:var(--gold);color:#141210;border-bottom-right-radius:4px;align-self:flex-end}
+  .msg a{color:var(--gold-bright)}
+  .msg.user a{color:#141210}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 12px}
+  .chip{background:#232327;border:1px solid var(--line);color:#e8e2d6;border-radius:999px;padding:7px 13px;font-size:.88rem;cursor:pointer}
+  .chip:hover{border-color:var(--gold);color:var(--gold-bright)}
+  #helper-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+  #helper-input{flex:1;padding:10px 12px;border-radius:8px;background:#101012;color:var(--text);border:1px solid var(--line);font:inherit}
+  #helper-send{background:var(--gold);border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.04em}
+  #helper-note{padding:10px 14px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+/* ============================================================================
+   Ray's Ironworks — v2 styles (append inside the existing <style> element)
+   Realistic 3D configurator + 2D blueprint mode + export controls.
+   Uses the site's existing variables: --bg, --panel, --panel2, --line,
+   --gold, --gold-bright, --text, --muted.
+   ========================================================================== */
+
+/* Piece-type selector */
+.piece-pills{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 4px}
+.piece-pill{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:.92rem;background:var(--panel2);color:#cfc9bf;border:1px solid var(--line);border-radius:8px;padding:10px 15px;cursor:pointer}
+.piece-pill[aria-selected="true"]{background:var(--gold);color:#141210;border-color:var(--gold)}
+
+/* 3D / Blueprint mode toggle */
+.view-toggle{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px}
+.view-toggle .tab-btn{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:.92rem;background:var(--panel2);color:#cfc9bf;border:1px solid var(--line);border-radius:8px;padding:9px 15px;cursor:pointer}
+.view-toggle .tab-btn.active{background:var(--gold);color:#141210;border-color:var(--gold)}
+.view-toggle .spacer{flex:1}
+
+/* Viewer canvas + blueprint canvas */
+#blueprintCanvas{width:100%;height:auto;display:none;border-radius:8px;background:#1b3a6b;border:1px solid var(--line)}
+#gate3d{height:420px}
+@media (max-width:640px){ #gate3d{height:300px} }
+
+/* Configurator controls */
+.cfg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:18px}
+.cfg-grid label{display:block;font-size:.9rem;color:var(--muted);margin-bottom:4px}
+.cfg-grid input[type=range]{width:100%;accent-color:var(--gold)}
+.cfg-grid select{width:100%;padding:9px;border-radius:6px;background:#101012;color:var(--text);border:1px solid var(--line);font:inherit}
+.cfg-checks{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px}
+.cfg-checks label{display:flex;align-items:center;gap:7px;font-size:.95rem;color:#d5cfc5;cursor:pointer}
+.cfg-checks input{accent-color:var(--gold);width:17px;height:17px}
+.cfg-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.cfg-row .btn{flex:0 0 auto}
+.cfg-note{margin-top:12px}
+@media (max-width:640px){
+  .cfg-row .btn{flex:1 1 100%;text-align:center}
+}
+
+/* Helper checklist + context line */
+#helper-context{display:block;font-size:.82rem;color:var(--muted)}
+.msg .checklist-step{margin:.2em 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="#top">Ray&rsquo;s <span>Ironworks</span></a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#quote">Quote &amp; 3D</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="fb" href="https://www.facebook.com/100067549362964" target="_blank" rel="noopener">Facebook</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Custom fabrication &amp; metal art</div>
+      <h1>Ray&rsquo;s <span>Ironworks</span></h1>
+      <p class="tag">Forged by hand, built to last. Gates, railings, sculpture and architectural ironwork — from concept, through the shop, to installation.</p>
+      <p class="places">Reno &middot; Tahoe &middot; Truckee &middot; Los Angeles</p>
+      <div class="cta-row">
+        <a class="btn btn-gold" href="#work">See the Work</a>
+        <a class="btn btn-ghost" href="#quote">Design &amp; Get a Quote</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div>
+          <div class="eyebrow">About the artist</div>
+          <h2>More than thirty years at the forge<span class="rule"></span></h2>
+          <p class="lede">Ray Mroczkowski is a metal artist and custom fabricator, owner of Ray&rsquo;s Ironworks — a custom metal fabrication shop. His ironwork spans structural steel, architectural railings, hand-forged gates, monument signs, and sculptural pieces: work defined by precision, durability, and an artist&rsquo;s eye.</p>
+          <p>A traveling artist, always a work in progress, Ray works across the Reno, Tahoe, and Truckee region as well as the Los Angeles and Topanga Canyon area — with installed work reaching Seattle, Washington.</p>
+          <blockquote>&ldquo;Forged-steel ribs rising like branches, lantern cores pierced with light patterns, forms that give shade by day and glow by night. He works in fire and water — the forge, and the way light moves. What he proposes is what gets built: no handoffs, no surprises.&rdquo;</blockquote>
+          <ul class="creds">
+            <li>Owner &amp; operator, Ray&rsquo;s Ironworks — 2015 to present</li>
+            <li>Welder &amp; fabricator, Ski&rsquo;s Welding — 1994 to 2018</li>
+            <li>Welding Certification; Renewable Energy, A.A.S. — Truckee Meadows Community College (2013)</li>
+            <li>MIG / TIG / ARC welding &middot; CAD (Fusion 360) &middot; 3D printing / CNC &middot; Structural fabrication &amp; installation</li>
+          </ul>
+          <p style="margin-top:1.2em">Find Ray on <a href="https://www.linkedin.com/in/ray-mroczkowski-3a8239aa/" target="_blank" rel="noopener">LinkedIn — Ray Mroczkowski</a>: &ldquo;Custom Metal Artist &amp; Fabricator | Owner, Ray&rsquo;s Ironworks | AI Coder &amp; Computer Scientist building apps and TABs energy-block homes.&rdquo;</p>
+        </div>
+        <div>
+          <figure>
+            <img src="images/childhood-welding-shop.jpg" alt="Ray as a boy in the welding shop" loading="lazy">
+            <figcaption>Where it started — Ray in the welding shop as a boy.</figcaption>
+          </figure>
+          <figure style="margin-top:18px">
+            <img src="images/on-the-job.jpg" alt="Ray welding on the job" loading="lazy">
+            <figcaption>On the job — the work, done by hand.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="eyebrow">What we build</div>
+      <h2>Services<span class="rule"></span></h2>
+      <p class="lede">Every piece is designed, fabricated, and installed by Ray&rsquo;s Ironworks — from the first sketch to the finished work on site.</p>
+      <div class="svc-grid">
+        <div class="svc"><h3>Custom Gates</h3><p>Hand-forged gates and entry structures — from garden gates to public amphitheater entries.</p></div>
+        <div class="svc"><h3>Railings</h3><p>Architectural railings, interior and exterior — staircases, balconies, and hillside runs built for the slope and the view.</p></div>
+        <div class="svc"><h3>Sculpture &amp; Public Art</h3><p>Cast-aluminum sculpture and large-scale steel installations, engineered for public life and decades of weather.</p></div>
+        <div class="svc"><h3>Monument Signs</h3><p>Monument and wayfinding signs — structural steel frameworks with finished metal panels.</p></div>
+        <div class="svc"><h3>Architectural Ironwork</h3><p>Patio covers, fences, storefront frameworks, and custom cladding — ironwork that shapes a space.</p></div>
+        <div class="svc"><h3>Structural Steel</h3><p>Structural channel, I-beams, and fabrication for builds that have to hold — and hold up.</p></div>
+      </div>
+      <p class="svc-note">Every commission is priced to the job. <a href="#contact">Contact Ray for a quote</a> — tell him what you&rsquo;re dreaming up. <button class="helper-link" data-helper-open data-helper-q="Which service fits my project?">Not sure which service fits? Ask the helper</button></p>
+    </div>
+  </section>
+
+  <!-- SIGNATURE WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="eyebrow">Selected work</div>
+      <h2>Signature Projects<span class="rule"></span></h2>
+
+      <article class="proj">
+        <div class="proj-img two">
+          <img src="images/wingfield-gates-installed.jpg" alt="Wingfield Park Amphitheater Gates, installed" loading="lazy">
+          <img src="images/wingfield-gates-fabrication.jpg" alt="Wingfield Park gates in fabrication" loading="lazy">
+        </div>
+        <div>
+          <div class="meta">Public commission &middot; City of Reno &middot; 2021</div>
+          <h3>Wingfield Park Amphitheater Gates</h3>
+          <p>A City of Reno Youth Council commission (about $15,000) — Ray as lead fabricating artist, from the shop to the brick entry walls. Four gates, each about 9&nbsp;ft tall &times; 4&nbsp;ft wide, designed, fabricated, and installed in spring 2021.</p>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-img">
+          <img src="images/conflux-installation.jpg" alt="The Conflux of Intent on the playa" loading="lazy">
+        </div>
+        <div>
+          <div class="meta">Large-scale installation &middot; Black Rock Desert &middot; 2026</div>
+          <h3>The Conflux of Intent</h3>
+          <p>An 18-foot interactive modular steel installation assembled on the Black Rock Desert in 2026. A towering sphere of bent steel rod and woven wire mesh rises from a central column above a 30-foot circular steel stage — part sculpture, part gathering place. By day a shaded gathering place; by night, lit from within.</p>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-img">
+          <img src="images/found-faith.jpg" alt="Found Faith — life-size aluminum figure holding a cross" loading="lazy">
+        </div>
+        <div>
+          <div class="meta">Sculpture &middot; Los Angeles &middot; 2018</div>
+          <h3>Found Faith</h3>
+          <p>A life-size aluminum mannequin — about 69 inches tall — holding a cross, built from upcycled materials for Project Sanctuary, a 2018 fashion show at the First Continental Church in Los Angeles.</p>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-img">
+          <img src="images/ghosts-of-malibu.jpg" alt="Ghosts of Malibu — cast aluminum" loading="lazy">
+        </div>
+        <div>
+          <div class="meta">Cast aluminum &middot; 12 &times; 12 &times; 12 in.</div>
+          <h3>Ghosts of Malibu, Wing &amp; Reach</h3>
+          <p>Cast from upcycled aluminum salvaged after the Malibu fires — from homes, cars, and possessions people lost. Each piece is about 12 &times; 12 &times; 12 inches: the ghost of a patio set, a blade of cast aluminum balanced on wood, a branching form reaching skyward. Aluminum frozen mid-gesture.</p>
+          <div class="trio">
+            <figure><img src="images/wing.jpg" alt="Wing — cast aluminum on wood" loading="lazy"><figcaption><b>Wing</b> — cast aluminum on wood.</figcaption></figure>
+            <figure><img src="images/reach.jpg" alt="Reach — branching cast form" loading="lazy"><figcaption><b>Reach</b> — a branching cast form, reaching skyward.</figcaption></figure>
+            <figure><img src="images/sentinel.jpg" alt="Sentinel — standing cast figure" loading="lazy"><figcaption><b>Sentinel</b> — a standing cast figure, upright and watching.</figcaption></figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-img">
+          <img src="images/monument-of-legacy.jpg" alt="Monument of Legacy, downtown Reno" loading="lazy">
+        </div>
+        <div>
+          <div class="meta">Monument sign &middot; Downtown Reno</div>
+          <h3>Monument of Legacy</h3>
+          <p>A large-scale public monument sign in downtown Reno. Designed by Josh Vaile and fabricated by Ray&rsquo;s Ironworks over six weeks — a structural steel framework paired with vivid mosaic-style sheet metal panels.</p>
+          <p><b>Michael the Archangel</b> — Santa Clarita Trailhead Sculpture: mirrored twin wings on a forged root-and-flame steel base, hammered aluminum feather panels, solar uplights. 9&prime;-6&Prime; &times; 11&prime;-0&Prime;, about 1,350&nbsp;lb.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="eyebrow">From the shop &amp; the field</div>
+      <h2>Gallery<span class="rule"></span></h2>
+      <p class="lede">Railings set, structures raised, and ironwork finished on site — from Reno, Tahoe, and Truckee to LA and Topanga Canyon.</p>
+      <div class="gal">
+        <figure><img src="images/beverly-hills-railing.jpg" alt="Black steel railings, Beverly Hills" loading="lazy"><figcaption><b>Beverly Hills House</b> — black steel slat railings for a hillside house.</figcaption></figure>
+        <figure><img src="images/venice-storefront.jpg" alt="Wabi on Rose storefront, Venice" loading="lazy"><figcaption><b>Wabi on Rose, Venice</b> — outdoor seating framework, steel wrapped in planting.</figcaption></figure>
+        <figure><img src="images/metal-grass-day.jpg" alt="Metal grass sculpture by day" loading="lazy"><figcaption><b>Metal Grass</b> — forged botanicals, by day.</figcaption></figure>
+        <figure><img src="images/skyline-patio.jpg" alt="Skyline patio ironwork" loading="lazy"><figcaption><b>Skyline Patio</b> — architectural ironwork, Reno.</figcaption></figure>
+        <figure><img src="images/sunburst-fence.jpg" alt="Sunburst fence" loading="lazy"><figcaption><b>Sunburst Fence</b> — outdoor artistic fence.</figcaption></figure>
+        <figure><img src="images/boat-tower.jpg" alt="TIG-welded aluminum boat tower" loading="lazy"><figcaption><b>Aluminum Boat Towers</b> — TIG-welded aluminum tube fabrication.</figcaption></figure>
+      </div>
+      <p class="gal-ask"><button class="helper-link" data-helper-open data-helper-q="Tell me about a piece in the gallery">Wondering about a piece you see here? Ask the helper about it</button></p>
+    </div>
+  </section>
+
+  <!-- QUOTE & 3D -->
+  <section id="quote">
+    <div class="wrap">
+      <div class="eyebrow">Design &amp; quote</div>
+      <h2>Plan Your Project — 3D &amp; Technical Drawings<span class="rule"></span></h2>
+      <p class="lede">Explore the project types below, see how they&rsquo;re drawn and built, try the 3D gate, upload photos of your own ideas, and send Ray a quote request. Every commission is priced to the job — this page helps you describe yours clearly so the quote comes back fast.</p>
+      <p class="honest"><b>How this page works — plainly:</b> this website has no server. The drawings and the 3D viewer run entirely in your browser, and your photos stay on your device — they are never uploaded anywhere. When you send a quote request, your email app opens with everything written out; you attach your photos to that email before sending. If email doesn&rsquo;t open, you can download or copy the request instead.</p>
+
+      <!-- Project type explorer -->
+      <div class="tabs" role="tablist" aria-label="Project types">
+        <button class="tab" role="tab" aria-selected="true" data-tab="gate">Gate</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="railing">Railing</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="sculpture">Sculpture</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="sign">Monument Sign</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="patio">Patio Cover</button>
+      </div>
+
+      <div class="draw-panel active" id="draw-gate" role="tabpanel">
+        <svg viewBox="0 0 420 270" role="img" aria-label="Technical drawing of a custom steel gate, front elevation with width and height dimensions">
+          <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#E8A317"/></marker></defs>
+          <rect x="20" y="20" width="380" height="230" fill="none"/>
+          <line x1="60" y1="38" x2="360" y2="38" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <text x="210" y="28" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif">WIDTH — tell us the opening</text>
+          <line x1="388" y1="55" x2="388" y2="235" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <text x="402" y="150" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif" transform="rotate(90 402 150)">HEIGHT</text>
+          <rect x="55" y="55" width="14" height="180" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="351" y="55" width="14" height="180" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="55" y="55" width="310" height="12" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="55" y="223" width="310" height="12" fill="#3a3f46" stroke="#C9883D"/>
+          <g stroke="#8a8f98" stroke-width="5"><line x1="95" y1="67" x2="95" y2="223"/><line x1="125" y1="67" x2="125" y2="223"/><line x1="155" y1="67" x2="155" y2="223"/><line x1="185" y1="67" x2="185" y2="223"/><line x1="215" y1="67" x2="215" y2="223"/><line x1="245" y1="67" x2="245" y2="223"/><line x1="275" y1="67" x2="275" y2="223"/><line x1="305" y1="67" x2="305" y2="223"/><line x1="335" y1="67" x2="335" y2="223"/></g>
+          <text x="62" y="252" fill="#a8a29a" font-size="12" font-family="sans-serif">Steel posts</text>
+          <text x="210" y="252" fill="#a8a29a" font-size="12" text-anchor="middle" font-family="sans-serif">Frame + vertical slats</text>
+        </svg>
+        <div>
+          <h3>Custom Gate</h3>
+          <p>Hand-forged gates and entry structures — garden gates to public entries like the Wingfield Park Amphitheater Gates.</p>
+          <ul>
+            <li><b>What to measure:</b> the opening width and the height you want, plus post condition (existing posts or new).</li>
+            <li><b>Materials:</b> steel frame and slats; finishes from raw/patina to powder-coated black.</li>
+            <li><b>What drives the quote:</b> size, steel weight, finish, hinges/hardware, and site access for install.</li>
+          </ul>
+          <button class="btn btn-gold btn-small" data-quote-type="Custom Gate">Start a quote for a gate</button>
+        </div>
+      </div>
+
+      <div class="draw-panel" id="draw-railing" role="tabpanel">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Technical drawing of a railing run, front elevation with length and height dimensions">
+          <defs><marker id="arr2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#E8A317"/></marker></defs>
+          <line x1="30" y1="30" x2="390" y2="30" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr2)" marker-end="url(#arr2)"/>
+          <text x="210" y="20" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif">RUN LENGTH — total feet of railing</text>
+          <line x1="404" y1="50" x2="404" y2="170" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr2)" marker-end="url(#arr2)"/>
+          <text x="414" y="112" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif" transform="rotate(90 414 112)">HEIGHT</text>
+          <rect x="25" y="48" width="370" height="10" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="25" y="160" width="370" height="8" fill="#3a3f46" stroke="#C9883D"/>
+          <g stroke="#8a8f98" stroke-width="4"><line x1="55" y1="58" x2="55" y2="160"/><line x1="85" y1="58" x2="85" y2="160"/><line x1="115" y1="58" x2="115" y2="160"/><line x1="145" y1="58" x2="145" y2="160"/><line x1="175" y1="58" x2="175" y2="160"/><line x1="205" y1="58" x2="205" y2="160"/><line x1="235" y1="58" x2="235" y2="160"/><line x1="265" y1="58" x2="265" y2="160"/><line x1="295" y1="58" x2="295" y2="160"/><line x1="325" y1="58" x2="325" y2="160"/><line x1="355" y1="58" x2="355" y2="160"/><line x1="385" y1="58" x2="385" y2="160"/></g>
+          <rect x="25" y="48" width="10" height="122" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="385" y="48" width="10" height="122" fill="#3a3f46" stroke="#C9883D"/>
+          <text x="30" y="196" fill="#a8a29a" font-size="12" font-family="sans-serif">Top rail &middot; balusters &middot; posts</text>
+          <text x="390" y="196" fill="#a8a29a" font-size="12" text-anchor="end" font-family="sans-serif">Stairs? Note the slope.</text>
+        </svg>
+        <div>
+          <h3>Railing</h3>
+          <p>Architectural railings, interior and exterior — staircases, balconies, and hillside runs built for the slope and the view.</p>
+          <ul>
+            <li><b>What to measure:</b> total run length in feet, height, and whether stairs or a slope are involved.</li>
+            <li><b>Materials:</b> steel slats and tube; blackened, blued, or powder-coated finishes.</li>
+            <li><b>What drives the quote:</b> length, height, slope/stairs, finish, and mounting (deck, concrete, or wall).</li>
+          </ul>
+          <button class="btn btn-gold btn-small" data-quote-type="Railing">Start a quote for railing</button>
+        </div>
+      </div>
+
+      <div class="draw-panel" id="draw-sculpture" role="tabpanel">
+        <svg viewBox="0 0 320 270" role="img" aria-label="Technical drawing of a sculpture on a base, with height dimension">
+          <defs><marker id="arr3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#E8A317"/></marker></defs>
+          <line x1="268" y1="30" x2="268" y2="210" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr3)" marker-end="url(#arr3)"/>
+          <text x="282" y="122" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif" transform="rotate(90 282 122)">HEIGHT</text>
+          <rect x="90" y="210" width="140" height="16" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="100" y="226" width="120" height="10" fill="#3a3f46" stroke="#C9883D"/>
+          <path d="M160 210 C 150 160, 120 150, 105 110 C 95 85, 110 70, 130 80 C 120 60, 135 40, 155 55 C 160 35, 175 30, 180 50 C 195 40, 205 60, 195 75 C 215 70, 225 90, 210 105 C 225 125, 200 150, 185 165 C 175 180, 168 195, 160 210 Z" fill="#8a8f98" stroke="#C9883D" stroke-width="1.5"/>
+          <text x="160" y="258" fill="#a8a29a" font-size="12" text-anchor="middle" font-family="sans-serif">Cast or forged form on a base</text>
+        </svg>
+        <div>
+          <h3>Sculpture</h3>
+          <p>Cast-aluminum sculpture and forged-steel forms — from tabletop pieces to large-scale installations.</p>
+          <ul>
+            <li><b>What to share:</b> the size you imagine, where it will live (indoors, garden, public space), and photos or sketches of the feeling you want.</li>
+            <li><b>Materials:</b> cast aluminum, forged steel, mixed media — including upcycled and salvaged metal.</li>
+            <li><b>What drives the quote:</b> size and weight, material, casting/forging time, base and mounting, and delivery/install.</li>
+          </ul>
+          <button class="btn btn-gold btn-small" data-quote-type="Sculpture">Start a quote for a sculpture</button>
+        </div>
+      </div>
+
+      <div class="draw-panel" id="draw-sign" role="tabpanel">
+        <svg viewBox="0 0 420 230" role="img" aria-label="Technical drawing of a monument sign, front elevation with width and height dimensions">
+          <defs><marker id="arr4" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#E8A317"/></marker></defs>
+          <line x1="70" y1="28" x2="350" y2="28" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr4)" marker-end="url(#arr4)"/>
+          <text x="210" y="18" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif">PANEL WIDTH</text>
+          <line x1="382" y1="45" x2="382" y2="165" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr4)" marker-end="url(#arr4)"/>
+          <text x="396" y="108" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif" transform="rotate(90 396 108)">HEIGHT</text>
+          <rect x="70" y="45" width="280" height="120" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="90" y="65" width="240" height="80" fill="none" stroke="#8a8f98" stroke-width="2"/>
+          <text x="210" y="112" fill="#F2EFE8" font-size="20" text-anchor="middle" font-family="sans-serif">YOUR NAME HERE</text>
+          <rect x="90" y="165" width="12" height="45" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="318" y="165" width="12" height="45" fill="#3a3f46" stroke="#C9883D"/>
+          <text x="210" y="222" fill="#a8a29a" font-size="12" text-anchor="middle" font-family="sans-serif">Steel framework &middot; finished metal panels &middot; set in concrete</text>
+        </svg>
+        <div>
+          <h3>Monument Sign</h3>
+          <p>Monument and wayfinding signs — structural steel frameworks with finished metal panels, like the Monument of Legacy in downtown Reno.</p>
+          <ul>
+            <li><b>What to share:</b> panel size, the words or logo, and whether it stands in soil, concrete, or a wall.</li>
+            <li><b>Materials:</b> structural steel frame; sheet-metal, mosaic, or cut panels.</li>
+            <li><b>What drives the quote:</b> size, panel work, lettering, footings, and install.</li>
+          </ul>
+          <button class="btn btn-gold btn-small" data-quote-type="Monument Sign">Start a quote for a sign</button>
+        </div>
+      </div>
+
+      <div class="draw-panel" id="draw-patio" role="tabpanel">
+        <svg viewBox="0 0 420 230" role="img" aria-label="Technical drawing of a patio cover, side elevation with span and height dimensions">
+          <defs><marker id="arr5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#E8A317"/></marker></defs>
+          <line x1="50" y1="30" x2="370" y2="30" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr5)" marker-end="url(#arr5)"/>
+          <text x="210" y="20" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif">SPAN — how far it reaches</text>
+          <line x1="396" y1="60" x2="396" y2="190" stroke="#E8A317" stroke-width="1.5" marker-start="url(#arr5)" marker-end="url(#arr5)"/>
+          <text x="408" y="128" fill="#E8A317" font-size="13" text-anchor="middle" font-family="sans-serif" transform="rotate(90 408 128)">HEIGHT</text>
+          <polygon points="40,70 380,50 380,66 40,86" fill="#3a3f46" stroke="#C9883D"/>
+          <g stroke="#8a8f98" stroke-width="4"><line x1="60" y1="84" x2="150" y2="80"/><line x1="150" y1="80" x2="240" y2="76"/><line x1="240" y1="76" x2="330" y2="72"/></g>
+          <rect x="55" y="86" width="12" height="104" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="200" y="78" width="12" height="112" fill="#3a3f46" stroke="#C9883D"/>
+          <rect x="345" y="70" width="12" height="120" fill="#3a3f46" stroke="#C9883D"/>
+          <line x1="40" y1="190" x2="380" y2="190" stroke="#a8a29a" stroke-width="1.5"/>
+          <text x="210" y="212" fill="#a8a29a" font-size="12" text-anchor="middle" font-family="sans-serif">Posts &middot; beams &middot; roof — attached or freestanding</text>
+        </svg>
+        <div>
+          <h3>Patio Cover</h3>
+          <p>Architectural patio covers and shade structures — steel posts and beams that shape an outdoor room.</p>
+          <ul>
+            <li><b>What to measure:</b> the span and depth of the area to cover, and the height you want underneath.</li>
+            <li><b>Materials:</b> steel posts, beams, and roof framing; open slats or solid cover.</li>
+            <li><b>What drives the quote:</b> span, roof type, footings, and whether it attaches to the house or stands free.</li>
+          </ul>
+          <button class="btn btn-gold btn-small" data-quote-type="Patio Cover">Start a quote for a patio cover</button>
+        </div>
+      </div>
+
+<!-- ============================================================================
+     Ray's Ironworks — v2 viewer-box HTML
+     REPLACES the existing <div class="viewer-box"> ... </div> block in the
+     Quote & 3D section (the block that holds <canvas id="gate3d">).
+     Everything else on the page stays as it is.
+     IDs must match configurator-v2.js and blueprint.js.
+     ========================================================================== -->
+<div class="viewer-box">
+  <div class="eyebrow">Try it in 3D — realistic rendering</div>
+  <h3>Design Studio — drag to rotate</h3>
+  <p>Configure a gate, a railing, a sculpture base, a sign frame, or a patio cover frame. Change the size, style, posts, decorative ironwork, material, and finish — and watch it change live. Save a still image or a turntable video of your design, or check the 2D blueprint view.</p>
+  <p class="honest"><b>What you&rsquo;re looking at:</b> a visualization of your configured piece — rendered to look like the real thing, with metal, light, and shadow — not a photograph of a finished piece. Ray builds the real thing to your exact measurements, and the final design and price come from him.</p>
+
+  <!-- 3D / Blueprint mode -->
+  <div class="view-toggle" style="margin-top:18px">
+    <button type="button" class="tab-btn active" id="mode3DBtn" aria-selected="true">3D View</button>
+    <button type="button" class="tab-btn" id="mode2DBtn" aria-selected="false">2D Blueprint</button>
+    <span class="spacer"></span>
+    <button type="button" class="btn btn-ghost btn-small" id="downloadBlueprintBtn">Download Blueprint PNG</button>
+  </div>
+
+  <canvas id="gate3d" aria-label="Interactive 3D model of your configured ironwork. Drag to rotate."></canvas>
+  <canvas id="blueprintCanvas" width="900" height="560" aria-label="2D technical elevation drawing of your configured piece"></canvas>
+  <p id="gate3d-fallback" class="small" style="display:none">The 3D viewer could not load (it needs the Three.js library from the web). The technical drawing above shows the same piece — you can still send a quote request below.</p>
+
+  <!-- Piece type -->
+  <div class="piece-pills" role="tablist" aria-label="Piece type">
+    <button type="button" class="piece-pill" role="tab" data-piece="gate" aria-selected="true">Gate</button>
+    <button type="button" class="piece-pill" role="tab" data-piece="railing" aria-selected="false">Railing</button>
+    <button type="button" class="piece-pill" role="tab" data-piece="sculpture-base" aria-selected="false">Sculpture Base</button>
+    <button type="button" class="piece-pill" role="tab" data-piece="sign-frame" aria-selected="false">Sign Frame</button>
+    <button type="button" class="piece-pill" role="tab" data-piece="patio-cover" aria-selected="false">Patio Cover Frame</button>
+  </div>
+
+  <!-- Dimensions + style -->
+  <div class="cfg-grid">
+    <div><label for="cfg-width"><span id="cfg-width-label">Width</span> — <span id="cfg-width-val">10 ft</span></label><input type="range" id="cfg-width" min="4" max="16" step="0.5" value="10"></div>
+    <div><label for="cfg-height"><span id="cfg-height-label">Height</span> — <span id="cfg-height-val">6 ft</span></label><input type="range" id="cfg-height" min="4" max="8" step="0.5" value="6"></div>
+    <div id="cfg-depth-row" style="display:none"><label for="cfg-depth"><span id="cfg-depth-label">Depth</span> — <span id="cfg-depth-val">8 ft</span></label><input type="range" id="cfg-depth" min="1" max="20" step="0.5" value="8"></div>
+    <div><label for="cfg-style">Style</label>
+      <select id="cfg-style">
+        <option value="vertical">Vertical slats</option>
+        <option value="horizontal">Horizontal bars</option>
+        <option value="solid">Solid panel</option>
+      </select>
+    </div>
+    <div id="cfg-leaves-row"><label for="cfg-leaves">Leaves</label>
+      <select id="cfg-leaves">
+        <option value="single">Single leaf</option>
+        <option value="double">Double leaves</option>
+      </select>
+    </div>
+    <div id="cfg-toprail-row" style="display:none"><label for="cfg-toprail">Top rail profile</label>
+      <select id="cfg-toprail">
+        <option value="flat">Flat bar</option>
+        <option value="round">Round tube</option>
+        <option value="cap">Wide cap</option>
+      </select>
+    </div>
+    <div id="cfg-post-row"><label for="cfg-post">Post style</label>
+      <select id="cfg-post">
+        <option value="square">Square</option>
+        <option value="round">Round</option>
+        <option value="ornate">Ornate (with collars)</option>
+      </select>
+    </div>
+    <div id="cfg-postspacing-row" style="display:none"><label for="cfg-postspacing">Post spacing — <span id="cfg-postspacing-val">6 ft</span></label><input type="range" id="cfg-postspacing" min="4" max="8" step="0.5" value="6"></div>
+    <div id="cfg-picketspacing-row" style="display:none"><label for="cfg-picketspacing">Picket spacing — <span id="cfg-picketspacing-val">4 in</span></label><input type="range" id="cfg-picketspacing" min="3" max="6" step="0.5" value="4"></div>
+    <div><label for="cfg-finial">Finials (on posts)</label>
+      <select id="cfg-finial">
+        <option value="none">None</option>
+        <option value="ball">Ball</option>
+        <option value="spear">Spear</option>
+        <option value="scroll">Scroll</option>
+      </select>
+    </div>
+    <div><label for="cfg-material">Material</label>
+      <select id="cfg-material">
+        <option value="wrought">Wrought iron</option>
+        <option value="steel">Steel</option>
+        <option value="aluminum">Aluminum</option>
+      </select>
+    </div>
+    <div><label for="cfg-finish">Finish</label>
+      <select id="cfg-finish">
+        <option value="matte-black">Matte black</option>
+        <option value="bronze">Bronze</option>
+        <option value="copper">Copper</option>
+        <option value="galvanized">Galvanized</option>
+        <option value="powder-coat">Powder-coat (choose a color)</option>
+      </select>
+    </div>
+    <div id="cfg-powder-row" style="display:none"><label for="cfg-powder">Powder-coat color</label>
+      <select id="cfg-powder">
+        <option value="charcoal">Charcoal</option>
+        <option value="forest">Forest green</option>
+        <option value="bronze-brown">Bronze brown</option>
+        <option value="white">White</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Decorative ironwork -->
+  <div class="cfg-checks" aria-label="Decorative ironwork">
+    <span style="width:100%;color:var(--muted);font-size:.9rem">Decorative ironwork (shows on the model and in your quote):</span>
+    <label><input type="checkbox" id="cfg-decor-scroll"> Scrolls</label>
+    <label><input type="checkbox" id="cfg-decor-ring"> Rings</label>
+    <label><input type="checkbox" id="cfg-decor-leaf"> Leaf branch</label>
+    <label><input type="checkbox" id="cfg-decor-medallion"> Medallion</label>
+  </div>
+
+  <!-- View + export -->
+  <div class="cfg-row">
+    <button type="button" class="btn btn-ghost btn-small" id="cfg-turntable" aria-pressed="true">Pause Turntable</button>
+    <button type="button" class="btn btn-ghost btn-small" id="cfg-still">Save a Still Image (PNG)</button>
+    <button type="button" class="btn btn-ghost btn-small" id="cfg-video">Record Turntable Video (8 sec)</button>
+    <label style="display:flex;align-items:center;gap:7px;font-size:.95rem;color:#d5cfc5;cursor:pointer"><input type="checkbox" id="cfg-simple" style="accent-color:var(--gold);width:17px;height:17px"> Simple mode (faster on older phones)</label>
+  </div>
+  <p class="viewer-readout" id="cfg-readout">Gate: 10 ft wide × 6 ft high — vertical slats</p>
+  <p><button type="button" class="btn btn-gold btn-small" id="cfg-use-quote">Use this in my quote</button></p>
+  <p class="form-status" id="cfg-status" role="status"></p>
+  <p class="small cfg-note">The turntable video records one full rotation (about 8 seconds) and downloads as a WebM or MP4 file, depending on your browser. If your browser can&rsquo;t record video, the page will tell you plainly — use the still image instead. The blueprint is a concept drawing, not for fabrication.</p>
+</div>
+
+      <!-- Quote form -->
+      <form class="quote-form" id="quote-form" novalidate>
+        <div class="eyebrow">Quote request</div>
+        <h3>Send Ray Your Idea</h3>
+        <p>Fill in what you can — Ray replies with a quote and a timeline. Your photos stay on your device until you attach them to the email.</p>
+        <div class="form-grid">
+          <div class="field"><label for="q-name">Your name *</label><input id="q-name" type="text" required autocomplete="name" placeholder="Your name"></div>
+          <div class="field"><label for="q-email">Your email *</label><input id="q-email" type="email" required autocomplete="email" placeholder="you@example.com"></div>
+          <div class="field"><label for="q-phone">Phone (optional)</label><input id="q-phone" type="tel" autocomplete="tel" placeholder="424-555-0100"></div>
+          <div class="field"><label for="q-type">Project type *</label>
+            <select id="q-type" required>
+              <option value="">Choose a type…</option>
+              <option>Custom Gate</option><option>Railing</option><option>Sculpture</option>
+              <option>Monument Sign</option><option>Patio Cover</option><option>Structural Steel</option><option>Something else</option>
+            </select>
+          </div>
+          <div class="field"><label for="q-size">Approximate size</label><input id="q-size" type="text" placeholder="e.g. 10 ft wide × 6 ft high"></div>
+          <div class="field"><label for="q-location">Location / where it goes</label><input id="q-location" type="text" placeholder="City / neighborhood — e.g. Truckee, CA"></div>
+          <div class="field"><label for="q-timeline">Timeline</label>
+            <select id="q-timeline">
+              <option>Flexible</option><option>Within 1 month</option><option>1–3 months</option><option>3+ months</option>
+            </select>
+          </div>
+          <div class="field"><label for="q-budget">Budget range (optional)</label>
+            <select id="q-budget">
+              <option>Prefer not to say</option><option>Under $1,000</option><option>$1,000–$5,000</option><option>$5,000–$15,000</option><option>$15,000+</option>
+            </select>
+          </div>
+          <div class="field full"><label for="q-desc">Describe your idea *</label><textarea id="q-desc" required placeholder="What do you want built? What should it look like, and where will it live?"></textarea></div>
+          <div class="field full">
+            <label>Photos of your idea (optional)</label>
+            <label class="drop" id="q-drop">
+              <input type="file" id="q-photos" accept="image/*" multiple>
+              <span>Drop photos here, or click to choose — up to 8 images.<br>They stay on your device; you attach them to the email in the next step.</span>
+            </label>
+            <div class="thumbs" id="q-thumbs"></div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-gold" id="q-email-btn">Prepare Email to Ray</button>
+          <button type="button" class="btn btn-ghost" id="q-download-btn">Download Quote Summary</button>
+          <button type="button" class="btn btn-ghost" id="q-copy-btn">Copy Quote Details</button>
+        </div>
+        <p class="form-status" id="q-status" role="status"></p>
+        <p class="small">What happens next: your email app opens addressed to <b>raysironworks101@gmail.com</b> with everything filled in. <b>Attach your photos to that email before sending</b> — the website cannot attach them for you. If your email app doesn&rsquo;t open, use “Download Quote Summary” or “Copy Quote Details” and send them to Ray yourself. Ray replies with a quote and a timeline.</p>
+      </form>
+      <p style="margin-top:18px"><button class="helper-link" data-helper-open data-helper-q="Help me describe my idea for a quote">Not sure how to describe your idea? The helper can walk you through it</button></p>
+    </div>
+  </section>
+
+  <!-- DIGITAL ART -->
+  <section id="digital">
+    <div class="wrap">
+      <div class="eyebrow">Also from the studio</div>
+      <h2>Digital Art<span class="rule"></span></h2>
+      <div class="art-note">
+        <p>Alongside the ironwork, Ray has begun a second practice in digital art — surreal, symbolic compositions exploring faith, transformation, and resilience. These digital works begin where the ironwork ends: the inner landscape behind the outer work. Original digital pieces are available in the Art Shop as instant downloads.</p>
+        <a class="btn btn-gold" href="https://muse.ai/s/art-shop-zxb6jkaxylh3f/RT6wij0BEL05i2YtejPj7NXEUXMFVifMm56MmyNGDIA" target="_blank" rel="noopener">Visit the Art Shop</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="eyebrow">Commissions welcome</div>
+      <h2>Start a Project<span class="rule"></span></h2>
+      <p class="lede">Custom ironwork, gates, railings, and sculpture — tell Ray what you&rsquo;re dreaming up, and he&rsquo;ll tell you what it takes to build it.</p>
+      <div class="contact-grid" style="margin-top:28px">
+        <div class="contact-card">
+          <div class="lbl">Call or text</div>
+          <a class="big" href="tel:+14243949271">424-394-9271</a>
+          <div class="lbl">Email</div>
+          <a class="big" href="mailto:raysironworks101@gmail.com">raysironworks101@gmail.com</a>
+          <p style="color:var(--muted);margin-bottom:0">Serving Reno / Tahoe / Truckee and Los Angeles — Venice Beach, Beverly Hills, Topanga Canyon.</p>
+        </div>
+        <div class="contact-card">
+          <h3>Follow the work</h3>
+          <p><a href="https://www.facebook.com/100067549362964" target="_blank" rel="noopener">Ray&rsquo;s Ironworks on Facebook</a> — shop photos, finished pieces, and work in progress.</p>
+          <p><a href="https://www.linkedin.com/in/ray-mroczkowski-3a8239aa/" target="_blank" rel="noopener">Ray Mroczkowski on LinkedIn</a> — Custom Metal Artist &amp; Fabricator | Owner, Ray&rsquo;s Ironworks | AI Coder &amp; Computer Scientist building apps and TABs energy-block homes.</p>
+          <p><a href="https://drive.google.com/file/d/1vxk3xV5dK2uviuIfxNauHbHF3kklCBoH/view" target="_blank" rel="noopener">Full artist portfolio (PDF)</a> — selected works in ironwork &amp; digital art, 2026.</p>
+          <p style="color:var(--muted);margin-bottom:0">References available on request. <button class="helper-link" data-helper-open data-helper-q="How do I contact Ray?">Questions? Ask the helper</button></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><strong style="color:var(--text)">Ray&rsquo;s Ironworks</strong> &middot; Ray Mroczkowski &middot; Reno / Tahoe / Truckee &middot; Los Angeles &middot; <a href="https://www.linkedin.com/in/ray-mroczkowski-3a8239aa/" target="_blank" rel="noopener">LinkedIn</a></span>
+    <span>&copy; 2026 Ray Mroczkowski. All work shown is the artist&rsquo;s own.</span>
+  </div>
+</footer>
+
+<!-- In-app helper -->
+<button id="helper-fab" aria-haspopup="true" aria-controls="helper-panel">Ask the Helper</button>
+<div id="helper-panel" role="dialog" aria-label="Ironworks helper">
+  <header>
+    <div><b>Ironworks Helper</b><span>Ray&rsquo;s Ironworks — here to help, on every page</span></div>
+    <button id="helper-close" aria-label="Close helper">&times;</button>
+  </header>
+  <div id="helper-log" aria-live="polite"></div>
+  <div class="chips" id="helper-chips"></div>
+  <form id="helper-form">
+    <input id="helper-input" type="text" placeholder="Ask about Ray&rsquo;s work…" autocomplete="off" aria-label="Ask the helper a question">
+    <button id="helper-send" type="submit">Send</button>
+  </form>
+  <div id="helper-note">This helper answers from Ray&rsquo;s published work and process — it is a guided assistant, not a live AI. A live AI assistant would need a connected AI service, which is not set up on this site. For anything it can&rsquo;t answer, it will point you to Ray himself.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="configurator-v2.js"></script>
+<script src="blueprint.js"></script>
+<script src="forge-guide.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $ = function(s, c){ return (c||document).querySelector(s); };
+  var $$ = function(s, c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); };
+
+  /* ---------- Project-type tabs ---------- */
+  var tabs = $$(".tab");
+  function showTab(name){
+    tabs.forEach(function(t){ t.setAttribute("aria-selected", t.dataset.tab === name ? "true" : "false"); });
+    $$(".draw-panel").forEach(function(p){ p.classList.toggle("active", p.id === "draw-" + name); });
+  }
+  tabs.forEach(function(t){ t.addEventListener("click", function(){ showTab(t.dataset.tab); }); });
+
+  /* ---------- Quote-type buttons ---------- */
+  $$("[data-quote-type]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var sel = $("#q-type");
+      sel.value = b.dataset.quoteType;
+      document.getElementById("quote-form").scrollIntoView({behavior:"smooth"});
+      setStatus("Project type set to “" + b.dataset.quoteType + "”. Fill in the rest below.", "ok");
+    });
+  });
+
+
+  /* ---------- Quote form ---------- */
+  var photos = []; // {name, size, file} — kept in the browser only, never uploaded
+  var statusEl = $("#q-status");
+  function setStatus(msg, kind){
+    statusEl.textContent = msg;
+    statusEl.className = "form-status " + (kind || "");
+  }
+  function renderThumbs(){
+    var box = $("#q-thumbs"); box.innerHTML = "";
+    photos.forEach(function(p, i){
+      var fig = document.createElement("figure");
+      var img = document.createElement("img");
+      img.alt = p.name;
+      var reader = new FileReader();
+      reader.onload = function(ev){ img.src = ev.target.result; };
+      reader.readAsDataURL(p.file);
+      var cap = document.createElement("figcaption");
+      cap.textContent = p.name + " (" + Math.round(p.size/1024) + " KB)";
+      var rm = document.createElement("button");
+      rm.type = "button"; rm.textContent = "Remove";
+      rm.addEventListener("click", function(){ photos.splice(i, 1); renderThumbs(); });
+      fig.appendChild(img); fig.appendChild(cap); fig.appendChild(rm);
+      box.appendChild(fig);
+    });
+  }
+  function addPhotos(fileList){
+    var added = 0;
+    Array.prototype.forEach.call(fileList, function(f){
+      if (!f.type || f.type.indexOf("image/") !== 0) return;
+      if (photos.length >= 8){ setStatus("Up to 8 photos, please — remove one to add another.", "warn"); return; }
+      photos.push({ name: f.name, size: f.size, file: f }); added++;
+    });
+    if (added) renderThumbs();
+  }
+  $("#q-photos").addEventListener("change", function(e){ addPhotos(e.target.files); e.target.value = ""; });
+  var drop = $("#q-drop");
+  ["dragover","dragenter"].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add("over"); }); });
+  ["dragleave","drop"].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove("over"); }); });
+  drop.addEventListener("drop", function(e){ if (e.dataTransfer && e.dataTransfer.files) addPhotos(e.dataTransfer.files); });
+
+  function collectQuote(){
+    return {
+      name: $("#q-name").value.trim(),
+      email: $("#q-email").value.trim(),
+      phone: $("#q-phone").value.trim(),
+      type: $("#q-type").value,
+      size: $("#q-size").value.trim(),
+      location: $("#q-location").value.trim(),
+      timeline: $("#q-timeline").value,
+      budget: $("#q-budget").value,
+      desc: $("#q-desc").value.trim(),
+      photos: photos.map(function(p){ return p.name + " (" + Math.round(p.size/1024) + " KB)"; })
+    };
+  }
+  function quoteText(q){
+    var lines = [
+      "Quote request — Ray's Ironworks (from rays-ironworks website)",
+      "",
+      "Name: " + (q.name || "(not given)"),
+      "Email: " + (q.email || "(not given)"),
+      "Phone: " + (q.phone || "(not given)"),
+      "Project type: " + (q.type || "(not chosen)"),
+      "Approximate size: " + (q.size || "(not given)"),
+      "Location: " + (q.location || "(not given)"),
+      "Timeline: " + q.timeline,
+      "Budget range: " + q.budget,
+      "",
+      "Description:",
+      q.desc || "(not given)",
+      "",
+      "Photos attached to this email by the visitor (" + q.photos.length + "):"
+    ];
+    q.photos.forEach(function(n){ lines.push(" - " + n); });
+    if (!q.photos.length) lines.push(" (none — no photos were attached)");
+    lines.push("", "— Sent from the Ray's Ironworks website quote form. Photos are attached to this email by the visitor; the website does not store them.");
+    return lines.join("\n");
+  }
+  function validQuote(q){
+    if (!q.name){ setStatus("Please add your name first.", "warn"); $("#q-name").focus(); return false; }
+    if (!q.email || q.email.indexOf("@") < 1){ setStatus("Please add a valid email so Ray can reply.", "warn"); $("#q-email").focus(); return false; }
+    if (!q.type){ setStatus("Please choose a project type.", "warn"); $("#q-type").focus(); return false; }
+    if (!q.desc){ setStatus("Please describe your idea — even a sentence or two helps.", "warn"); $("#q-desc").focus(); return false; }
+    return true;
+  }
+  $("#q-email-btn").addEventListener("click", function(){
+    var q = collectQuote();
+    if (!validQuote(q)) return;
+    var subject = "Quote request — " + q.type + " — " + q.name;
+    var body = quoteText(q);
+    var url = "mailto:raysironworks101@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    if (url.length > 1800){
+      setStatus("Your request is long for an email link — use “Download Quote Summary” instead, then send that file to raysironworks101@gmail.com.", "warn");
+      return;
+    }
+    window.location.href = url;
+    setStatus(q.photos.length
+      ? "Your email app should have opened with the request filled in. Remember to attach your " + q.photos.length + " photo(s) to the email before sending."
+      : "Your email app should have opened with the request filled in. Send it whenever you are ready.", "ok");
+  });
+  $("#q-download-btn").addEventListener("click", function(){
+    var q = collectQuote();
+    if (!validQuote(q)) return;
+    var blob = new Blob([quoteText(q)], { type: "text/plain" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "rays-ironworks-quote-request.txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setStatus("Quote summary downloaded. Send it (and your photos) to raysironworks101@gmail.com.", "ok");
+  });
+  $("#q-copy-btn").addEventListener("click", function(){
+    var q = collectQuote();
+    if (!validQuote(q)) return;
+    var text = quoteText(q);
+    function done(){ setStatus("Quote details copied. Paste them into an email to raysironworks101@gmail.com — and attach your photos.", "ok"); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){
+        var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta);
+        ta.select(); try { document.execCommand("copy"); done(); } catch(e){ setStatus("Copy did not work in this browser — use “Download Quote Summary” instead.", "warn"); }
+        ta.remove();
+      });
+    } else { setStatus("Copy is not available in this browser — use “Download Quote Summary” instead.", "warn"); }
+  });
+
+
+</script>
+
+</body>
+</html>
