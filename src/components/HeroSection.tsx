@@ -1,6 +1,9 @@
+import { resolveAssetPath } from './ResilientImage';
+
 interface HeroSectionProps {
   onOpenDesignStudio?: () => void;
 }
+
 
 export function HeroSection({ onOpenDesignStudio }: HeroSectionProps) {
   return (
@@ -9,7 +12,7 @@ export function HeroSection({ onOpenDesignStudio }: HeroSectionProps) {
       className="relative min-h-[85vh] flex items-end pb-14 sm:pb-16 pt-24 text-white bg-[#111] bg-cover bg-[center_38%]"
       style={{
         backgroundImage:
-          'linear-gradient(180deg, rgba(10,10,12,0.28) 0%, rgba(10,10,12,0.58) 55%, rgba(14,14,16,1) 100%), url("/images/wingfield-gates-installed.jpg")',
+          `linear-gradient(180deg, rgba(10,10,12,0.28) 0%, rgba(10,10,12,0.58) 55%, rgba(14,14,16,1) 100%), url("${resolveAssetPath('/images/wingfield-gates-installed.jpg')}")`,
       }}
     >
       <div className="max-w-[1160px] mx-auto px-5 w-full">
