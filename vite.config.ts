@@ -4,8 +4,10 @@ import fs from 'fs';
 import path from 'path';
 import {defineConfig} from 'vite';
 
+
 export default defineConfig(() => {
   return {
+    base: '/rays-ironworks-studio/',
     plugins: [
       react(),
       tailwindcss(),
