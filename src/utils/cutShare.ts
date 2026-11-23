@@ -131,6 +131,7 @@ export async function decodeCutShareHash(
     const merged: ConfiguratorState = {
       ...INITIAL_CONFIG,
       ...parsed.config,
+      hasPiece: true,
       decor: {
         ...INITIAL_CONFIG.decor,
         ...(parsed.config.decor || {}),

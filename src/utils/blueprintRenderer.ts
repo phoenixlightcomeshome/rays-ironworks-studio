@@ -1072,6 +1072,158 @@ function drawUploadedPhotoBlueprint2D(
   );
 }
 
+function drawEmptyBlueprint2D(ctx: CanvasRenderingContext2D): void {
+  // Blueprint background grid
+  ctx.fillStyle = '#1b3a6b';
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = 1;
+  for (let gx = 40; gx < W; gx += 40) {
+    ctx.beginPath();
+    ctx.moveTo(gx, 0);
+    ctx.lineTo(gx, H);
+    ctx.stroke();
+  }
+  for (let gy = 40; gy < H; gy += 40) {
+    ctx.beginPath();
+    ctx.moveTo(0, gy);
+    ctx.lineTo(W, gy);
+    ctx.stroke();
+  }
+
+  // Border
+  ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(14, 14, W - 28, H - 28);
+
+  // Title block
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 22px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText("RAY'S IRONWORKS — 2D BLUEPRINT VIEW", 30, 44);
+  ctx.font = "15px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#E8A317';
+  ctx.fillText('EMPTY WORKSPACE — READY FOR INPUT', 30, 66);
+
+  ctx.fillStyle = '#F2EFE8';
+  ctx.textAlign = 'right';
+  ctx.fillText('STATUS: READY', W - 30, 44);
+  ctx.font = "13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#a8c4e0';
+  ctx.fillText('Select a piece or tap "Load sample gate" to draft front elevation', W - 30, 66);
+  ctx.textAlign = 'left';
+
+  // Left Elevation Bay Frame
+  const ax = 75;
+  const bx = 640;
+  const gy = 580;
+  const topY = 130;
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+  ctx.setLineDash([6, 6]);
+  ctx.strokeRect(ax, topY, bx - ax, gy - topY);
+  ctx.setLineDash([]);
+
+  // Ground line
+  ctx.strokeStyle = '#E8A317';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(ax - 20, gy);
+  ctx.lineTo(bx + 20, gy);
+  ctx.stroke();
+
+  ctx.font = "600 12px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#E8A317';
+  ctx.fillText('FINISHED GRADE / GROUND LEVEL', ax, gy + 18);
+
+  // Center Callout Box
+  const cx = (ax + bx) / 2;
+  const cy = (topY + gy) / 2 - 15;
+
+  ctx.fillStyle = 'rgba(12, 33, 66, 0.85)';
+  ctx.strokeStyle = 'rgba(232, 163, 23, 0.6)';
+  ctx.lineWidth = 1.5;
+  const boxW = 380;
+  const boxH = 140;
+  ctx.fillRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+  ctx.strokeRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 18px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'center';
+  ctx.fillText('EMPTY 2D BLUEPRINT WORKSPACE', cx, cy - 24);
+
+  ctx.font = "14px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#bae6fd';
+  ctx.fillText('No piece is loaded yet. The workspace is clear so you can', cx, cy + 2);
+  ctx.fillText('input as you create from scratch.', cx, cy + 22);
+
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#fde68a';
+  ctx.fillText('Select a piece (Gate, Railing, etc.) or tap "Load sample gate" above.', cx, cy + 48);
+
+  // Right Side Specification Panel
+  const rx = 680;
+  const rw = W - 30 - rx;
+  const ry = 105;
+  const rh = H - 30 - ry;
+
+  ctx.fillStyle = '#0f274d';
+  ctx.fillRect(rx, ry, rw, rh);
+  ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(rx, ry, rw, rh);
+
+  let py = ry + 26;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 15px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText('SPECIFICATIONS & BILL OF MATERIALS', rx + 14, py);
+  py += 8;
+  ctx.strokeStyle = '#c9883d';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(rx + 14, py);
+  ctx.lineTo(rx + rw - 14, py);
+  ctx.stroke();
+
+  py += 24;
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#7dd3fc';
+  ctx.fillText('STATUS: WORKSPACE READY', rx + 14, py);
+
+  py += 24;
+  ctx.font = "12.5px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#cbd5e1';
+  ctx.fillText('• 0 pieces active', rx + 14, py);
+  py += 20;
+  ctx.fillText('• Empty blueprint canvas initialized', rx + 14, py);
+  py += 20;
+  ctx.fillText('• Ready for live parametric drafting', rx + 14, py);
+
+  py += 36;
+  ctx.fillStyle = '#E8A317';
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillText('HOW TO CREATE:', rx + 14, py);
+  py += 20;
+  ctx.fillStyle = '#e2e8f0';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.fillText('1. Select Gate, Railing, Sculpture, or Sign', rx + 14, py);
+  py += 18;
+  ctx.fillText('2. Adjust Post Style, Infill, and Pickets', rx + 14, py);
+  py += 18;
+  ctx.fillText('3. Dimensions & materials update live', rx + 14, py);
+  py += 18;
+  ctx.fillText('4. Tap "Load sample gate" anytime for 10×6 gate', rx + 14, py);
+
+  // Footer
+  ctx.fillStyle = '#a8c4e0';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText("Ray's Ironworks · 2D Blueprint Workspace · Ready for Input", 30, H - 22);
+}
+
 export function drawBlueprint(
   canvas: HTMLCanvasElement,
   state: ConfiguratorState,
@@ -1087,6 +1239,11 @@ export function drawBlueprint(
 
   if (uploadedPhoto) {
     drawUploadedPhotoBlueprint2D(ctx, state, uploadedPhoto, photoOverlay);
+    return;
+  }
+
+  if (!state.hasPiece) {
+    drawEmptyBlueprint2D(ctx);
     return;
   }
 
@@ -2144,6 +2301,129 @@ export function drawBlueprint(
  * Driven strictly by live ConfiguratorState values with explicit dimension arrows,
  * picket spacing & counts, thickness callouts, accent counts, materials, and scale note.
  */
+function drawEmptyTechnicalDrawing(ctx: CanvasRenderingContext2D): void {
+  // Blueprint Engineering Grid
+  ctx.fillStyle = '#0f274d';
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  for (let gx = 40; gx < W; gx += 40) {
+    ctx.beginPath();
+    ctx.moveTo(gx, 0);
+    ctx.lineTo(gx, H);
+    ctx.stroke();
+  }
+  for (let gy = 40; gy < H; gy += 40) {
+    ctx.beginPath();
+    ctx.moveTo(0, gy);
+    ctx.lineTo(W, gy);
+    ctx.stroke();
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(14, 14, W - 28, H - 28);
+
+  // Title Block
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 22px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText("RAY'S IRONWORKS — TECHNICAL CONCEPT DRAWING", 30, 44);
+  ctx.font = "15px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#E8A317';
+  ctx.fillText('EMPTY WORKSPACE — READY FOR INPUT', 30, 66);
+
+  ctx.fillStyle = '#7dd3fc';
+  ctx.textAlign = 'right';
+  ctx.font = "700 13px 'Source Sans 3', sans-serif";
+  ctx.fillText('Status: Ready for input', W - 30, 44);
+  ctx.fillStyle = '#a8c4e0';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.fillText('Select a piece or tap "Load sample gate" to draft technical drawing', W - 30, 66);
+  ctx.textAlign = 'left';
+
+  // Left Elevation Bay
+  const ax = 75;
+  const bx = 640;
+  const gy = 580;
+  const topY = 130;
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.setLineDash([6, 6]);
+  ctx.strokeRect(ax, topY, bx - ax, gy - topY);
+  ctx.setLineDash([]);
+
+  // Ground line
+  ctx.strokeStyle = '#E8A317';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(ax - 20, gy);
+  ctx.lineTo(bx + 20, gy);
+  ctx.stroke();
+
+  // Center Callout Box
+  const cx = (ax + bx) / 2;
+  const cy = (topY + gy) / 2 - 15;
+  ctx.fillStyle = 'rgba(8, 24, 52, 0.9)';
+  ctx.strokeStyle = 'rgba(232, 163, 23, 0.6)';
+  ctx.lineWidth = 1.5;
+  const boxW = 400;
+  const boxH = 130;
+  ctx.fillRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+  ctx.strokeRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 18px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'center';
+  ctx.fillText('EMPTY TECHNICAL DRAWING WORKSPACE', cx, cy - 22);
+  ctx.font = "14px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#bae6fd';
+  ctx.fillText('No piece loaded yet. Ready for live shop drafting.', cx, cy + 4);
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#fde68a';
+  ctx.fillText('Select a piece above or tap "Load sample gate" to draft.', cx, cy + 28);
+
+  // Right Side BOM Box
+  const rx = 680;
+  const rw = W - 30 - rx;
+  const ry = 105;
+  const rh = H - 30 - ry;
+  ctx.fillStyle = '#0a1c36';
+  ctx.fillRect(rx, ry, rw, rh);
+  ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(rx, ry, rw, rh);
+
+  let py = ry + 26;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 15px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText('TECHNICAL BILL OF MATERIALS', rx + 14, py);
+  py += 8;
+  ctx.strokeStyle = '#c9883d';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(rx + 14, py);
+  ctx.lineTo(rx + rw - 14, py);
+  ctx.stroke();
+
+  py += 24;
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#7dd3fc';
+  ctx.fillText('STATUS: WORKSPACE READY', rx + 14, py);
+  py += 22;
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#cbd5e1';
+  ctx.fillText('• 0 active components', rx + 14, py);
+  py += 18;
+  ctx.fillText('• Ready for live engineering parameters', rx + 14, py);
+
+  // Footer
+  ctx.fillStyle = '#a8c4e0';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText("Ray's Ironworks · Front Elevation Technical Drawing · Empty Workspace", 30, H - 22);
+}
+
 export function drawTechnicalDrawing(
   canvas: HTMLCanvasElement,
   state: ConfiguratorState,
@@ -2154,6 +2434,11 @@ export function drawTechnicalDrawing(
   }
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
+
+  if (!state.hasPiece) {
+    drawEmptyTechnicalDrawing(ctx);
+    return;
+  }
 
   const { thicknessCallouts, bom, finishSpec } = buildMaterialsList(state);
   const { catalog, picketOpt, barOpt } = getActiveSupplierSpecs(state);
@@ -2792,6 +3077,193 @@ function drawUploadedPhotoIsometric(
 /**
  * Dedicated Isometric Blueprint View (separate tab panel, full-sheet 3D isometric engineering projection).
  */
+function drawEmptyIsometricBlueprint(ctx: CanvasRenderingContext2D): void {
+  // Background & grid
+  ctx.fillStyle = '#12294e';
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+  ctx.lineWidth = 1;
+  for (let gx = 40; gx < W; gx += 40) {
+    ctx.beginPath();
+    ctx.moveTo(gx, 0);
+    ctx.lineTo(gx, H);
+    ctx.stroke();
+  }
+  for (let gy = 40; gy < H; gy += 40) {
+    ctx.beginPath();
+    ctx.moveTo(0, gy);
+    ctx.lineTo(W, gy);
+    ctx.stroke();
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.48)';
+  ctx.lineWidth = 1.6;
+  ctx.strokeRect(14, 14, W - 28, H - 28);
+
+  // Title Block
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 21px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText('ISOMETRIC BLUEPRINT VIEW', 30, 44);
+  ctx.fillStyle = '#E8A317';
+  ctx.font = "600 14px 'Source Sans 3', sans-serif";
+  ctx.fillText('EMPTY WORKSPACE — READY FOR INPUT', 30, 66);
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#7dd3fc';
+  ctx.font = "700 12.5px 'Source Sans 3', sans-serif";
+  ctx.fillText('30° isometric coordinate system — ready for input', W - 28, 44);
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.fillText('Status: Ready for input', W - 28, 66);
+  ctx.textAlign = 'left';
+
+  // Left Isometric Viewport
+  const rx = 28;
+  const ry = 90;
+  const rw = 696;
+  const rh = 608;
+  ctx.fillStyle = 'rgba(10, 22, 46, 0.72)';
+  ctx.fillRect(rx, ry, rw, rh);
+  ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+  ctx.lineWidth = 1.2;
+  ctx.strokeRect(rx, ry, rw, rh);
+
+  // Draw 30-deg isometric coordinate axes from center bottom
+  const isoOriginX = rx + rw / 2;
+  const isoOriginY = ry + rh - 120;
+  const cos30 = Math.cos(Math.PI / 6);
+  const sin30 = Math.sin(Math.PI / 6);
+
+  // Ground isometric grid lines
+  ctx.strokeStyle = 'rgba(125, 211, 252, 0.16)';
+  ctx.lineWidth = 1;
+  for (let d = -150; d <= 150; d += 30) {
+    ctx.beginPath();
+    ctx.moveTo(isoOriginX + d * cos30 - 150 * cos30, isoOriginY + d * sin30 + 150 * sin30);
+    ctx.lineTo(isoOriginX + d * cos30 + 150 * cos30, isoOriginY + d * sin30 - 150 * sin30);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(isoOriginX - 150 * cos30 + d * cos30, isoOriginY + 150 * sin30 + d * sin30);
+    ctx.lineTo(isoOriginX + 150 * cos30 + d * cos30, isoOriginY - 150 * sin30 + d * sin30);
+    ctx.stroke();
+  }
+
+  // Primary Axes: X (Width), Y (Depth), Z (Height vertical)
+  ctx.lineWidth = 2;
+  // Width axis (+X)
+  ctx.strokeStyle = '#38bdf8';
+  ctx.beginPath();
+  ctx.moveTo(isoOriginX, isoOriginY);
+  ctx.lineTo(isoOriginX + 160 * cos30, isoOriginY - 160 * sin30);
+  ctx.stroke();
+
+  // Depth axis (+Y)
+  ctx.strokeStyle = '#a78bfa';
+  ctx.beginPath();
+  ctx.moveTo(isoOriginX, isoOriginY);
+  ctx.lineTo(isoOriginX - 160 * cos30, isoOriginY - 160 * sin30);
+  ctx.stroke();
+
+  // Vertical axis (+Z Height)
+  ctx.strokeStyle = '#e8a317';
+  ctx.beginPath();
+  ctx.moveTo(isoOriginX, isoOriginY);
+  ctx.lineTo(isoOriginX, isoOriginY - 180);
+  ctx.stroke();
+
+  ctx.font = "600 12px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#38bdf8';
+  ctx.fillText('+ Width Axis (30°)', isoOriginX + 165 * cos30, isoOriginY - 165 * sin30);
+  ctx.fillStyle = '#a78bfa';
+  ctx.textAlign = 'right';
+  ctx.fillText('+ Depth Axis (150°)', isoOriginX - 165 * cos30, isoOriginY - 165 * sin30);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#e8a317';
+  ctx.fillText('+ Height Axis (Vertical)', isoOriginX, isoOriginY - 190);
+
+  // Center Callout Box
+  const cx = rx + rw / 2;
+  const cy = ry + 160;
+  ctx.fillStyle = 'rgba(8, 18, 38, 0.9)';
+  ctx.strokeStyle = 'rgba(232, 163, 23, 0.6)';
+  ctx.lineWidth = 1.5;
+  const boxW = 420;
+  const boxH = 130;
+  ctx.fillRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+  ctx.strokeRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 18px Oswald, 'Arial Narrow', sans-serif";
+  ctx.fillText('EMPTY ISOMETRIC BLUEPRINT VIEW', cx, cy - 24);
+
+  ctx.font = "14px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#bae6fd';
+  ctx.fillText('The 30° isometric space is clear and ready for your design.', cx, cy + 2);
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#fde68a';
+  ctx.fillText('Select any piece above or tap "Load sample gate" to project in 30°.', cx, cy + 28);
+
+  // Right Panel: Isometric Specifications
+  const sx = 740;
+  const sw = W - 28 - sx;
+  const sy = 90;
+  const sh = 608;
+
+  ctx.fillStyle = '#0a1830';
+  ctx.fillRect(sx, sy, sw, sh);
+  ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(sx, sy, sw, sh);
+
+  let iy = sy + 28;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 15px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText('ISOMETRIC PROJECTION SPECS', sx + 14, iy);
+  iy += 8;
+  ctx.strokeStyle = '#c9883d';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(sx + 14, iy);
+  ctx.lineTo(sx + sw - 14, iy);
+  ctx.stroke();
+
+  iy += 24;
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#7dd3fc';
+  ctx.fillText('STATUS: WORKSPACE READY', sx + 14, iy);
+
+  iy += 22;
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#cbd5e1';
+  ctx.fillText('• 30° True Isometric Projection', sx + 14, iy);
+  iy += 18;
+  ctx.fillText('• Width, Height & Depth vectors aligned', sx + 14, iy);
+  iy += 18;
+  ctx.fillText('• 0 structural components loaded', sx + 14, iy);
+
+  iy += 32;
+  ctx.fillStyle = '#e8a317';
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillText('START CREATING:', sx + 14, iy);
+  iy += 20;
+  ctx.fillStyle = '#e2e8f0';
+  ctx.fillText('1. Choose Piece type in the bar above', sx + 14, iy);
+  iy += 18;
+  ctx.fillText('2. Customize frame, infill, and posts', sx + 14, iy);
+  iy += 18;
+  ctx.fillText('3. Isometric 3D wireframe renders live', sx + 14, iy);
+  iy += 18;
+  ctx.fillText('4. Tap "Load sample gate" anytime', sx + 14, iy);
+
+  // Footer
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText("Ray's Ironworks · Isometric Blueprint Workspace · Ready for Input", 30, H - 22);
+}
+
 export function drawIsometricBlueprint(
   canvas: HTMLCanvasElement,
   state: ConfiguratorState,
@@ -2807,6 +3279,11 @@ export function drawIsometricBlueprint(
 
   if (uploadedPhoto) {
     drawUploadedPhotoIsometric(ctx, state, uploadedPhoto, onPhotoLoaded);
+    return;
+  }
+
+  if (!state.hasPiece) {
+    drawEmptyIsometricBlueprint(ctx);
     return;
   }
 
@@ -3115,8 +3592,23 @@ function fmtDecIn(feet: number): string {
 }
 
 export function buildDetailedCutList(state: ConfiguratorState): DetailedCutSummary {
+  const { catalog } = getActiveSupplierSpecs(state);
+  if (!state.hasPiece) {
+    return {
+      supplierName: catalog.name,
+      finishSpec: 'No piece configured',
+      items: [],
+      totals: {
+        lineItems: 0,
+        linearFeet: 0,
+        estimated20FtSticks: 0,
+        sheetSqFt: 0,
+        fittingsCount: 0,
+      },
+    };
+  }
   const matLabel = formatMaterialLabel(state);
-  const { catalog, barOpt, panelOpt } = getActiveSupplierSpecs(state);
+  const { barOpt, panelOpt } = getActiveSupplierSpecs(state);
   const isAlum = state.material === 'aluminum';
   const isGlass = state.material === 'glass';
   const isWood = state.material === 'wood';
@@ -3708,6 +4200,140 @@ export function buildDetailedCutList(state: ConfiguratorState): DetailedCutSumma
  * Displays an exploded callout-tagged schematic (A, B, C...) alongside
  * the itemized build cut list and mill-stock ordering totals.
  */
+function drawEmptyMaterialCutListSchematic(ctx: CanvasRenderingContext2D): void {
+  // Blueprint Background Grid
+  ctx.fillStyle = '#0d213f';
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  for (let gx = 40; gx < W; gx += 40) {
+    ctx.beginPath();
+    ctx.moveTo(gx, 0);
+    ctx.lineTo(gx, H);
+    ctx.stroke();
+  }
+  for (let gy = 40; gy < H; gy += 40) {
+    ctx.beginPath();
+    ctx.moveTo(0, gy);
+    ctx.lineTo(W, gy);
+    ctx.stroke();
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.48)';
+  ctx.lineWidth = 1.6;
+  ctx.strokeRect(14, 14, W - 28, H - 28);
+
+  // Title Block
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 20px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText('MATERIAL CUT LIST & ASSEMBLY SCHEMATIC', 30, 44);
+  ctx.fillStyle = '#E8A317';
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillText('EMPTY WORKSPACE — NO PIECES YET', 30, 65);
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#7dd3fc';
+  ctx.font = "700 12.5px 'Source Sans 3', sans-serif";
+  ctx.fillText('Status: No pieces configured', W - 30, 44);
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.fillText('Select a piece or tap "Load sample gate" to generate schematic', W - 30, 65);
+  ctx.textAlign = 'left';
+
+  // Left Schematic Area
+  const sx = 30;
+  const sy = 85;
+  const sw = 640;
+  const sh = H - 30 - sy;
+  ctx.fillStyle = '#08162b';
+  ctx.fillRect(sx, sy, sw, sh);
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.strokeRect(sx, sy, sw, sh);
+
+  const cx = sx + sw / 2;
+  const cy = sy + sh / 2;
+
+  ctx.fillStyle = 'rgba(12, 33, 66, 0.85)';
+  ctx.strokeStyle = 'rgba(232, 163, 23, 0.6)';
+  ctx.lineWidth = 1.5;
+  const boxW = 420;
+  const boxH = 140;
+  ctx.fillRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+  ctx.strokeRect(cx - boxW / 2, cy - boxH / 2, boxW, boxH);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 18px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'center';
+  ctx.fillText('NO PIECES YET', cx, cy - 24);
+
+  ctx.font = "14px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#bae6fd';
+  ctx.fillText('Configure a piece using the controls above or tap "Load sample gate"', cx, cy + 2);
+  ctx.fillText('to generate the exploded balloon assembly schematic & itemized cut list.', cx, cy + 22);
+
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#fde68a';
+  ctx.fillText('Ready for input — start drafting when ready.', cx, cy + 48);
+
+  // Right Side Summary Panel
+  const tx = 688;
+  const tw = W - 30 - tx;
+  const ty = 85;
+  const th = H - 30 - ty;
+  ctx.fillStyle = '#061326';
+  ctx.fillRect(tx, ty, tw, th);
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.strokeRect(tx, ty, tw, th);
+
+  let py = ty + 24;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = "700 14px Oswald, 'Arial Narrow', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText('ITEMIZED CUT LIST: 0 ITEMS', tx + 14, py);
+  py += 6;
+  ctx.strokeStyle = '#c9883d';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(tx + 14, py);
+  ctx.lineTo(tx + tw - 14, py);
+  ctx.stroke();
+
+  py += 24;
+  ctx.font = "600 12.5px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#7dd3fc';
+  ctx.fillText('STATUS: EMPTY', tx + 14, py);
+
+  py += 20;
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.fillStyle = '#cbd5e1';
+  ctx.fillText('• 0 linear feet of mill stock', tx + 14, py);
+  py += 18;
+  ctx.fillText('• 0 sheet / plate area', tx + 14, py);
+  py += 18;
+  ctx.fillText('• 0 hardware / cap / leaf fittings', tx + 14, py);
+
+  py += 32;
+  ctx.fillStyle = '#e8a317';
+  ctx.font = "600 13px 'Source Sans 3', sans-serif";
+  ctx.fillText('POPULATE CUT LIST:', tx + 14, py);
+  py += 20;
+  ctx.fillStyle = '#e2e8f0';
+  ctx.fillText('1. Select any piece in the top bar', tx + 14, py);
+  py += 18;
+  ctx.fillText('2. All cut lines calculate automatically', tx + 14, py);
+  py += 18;
+  ctx.fillText('3. Export as PNG, PDF, or CSV', tx + 14, py);
+  py += 18;
+  ctx.fillText('4. Tap "Load sample gate" for 10×6 gate', tx + 14, py);
+
+  // Footer
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = "12px 'Source Sans 3', sans-serif";
+  ctx.textAlign = 'left';
+  ctx.fillText("Ray's Ironworks · Material Cut List & Assembly Schematic · Empty Workspace", 30, H - 22);
+}
+
 export function drawMaterialCutListSchematic(
   canvas: HTMLCanvasElement,
   state: ConfiguratorState,
@@ -3718,6 +4344,11 @@ export function drawMaterialCutListSchematic(
   }
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
+
+  if (!state.hasPiece) {
+    drawEmptyMaterialCutListSchematic(ctx);
+    return;
+  }
 
   const summary = buildDetailedCutList(state);
   const { items, finishSpec, supplierName, totals } = summary;

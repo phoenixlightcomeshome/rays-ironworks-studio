@@ -5,6 +5,7 @@ import {
   MouseEvent as ReactMouseEvent,
   PointerEvent as ReactPointerEvent,
   SetStateAction,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -67,6 +68,7 @@ import {
   FinialType,
   INFILL_PATTERNS,
   INITIAL_CONFIG,
+  SAMPLE_GATE_CONFIG,
   InfillPatternType,
   LEAF_CATALOG,
   LeafOptionId,
@@ -219,7 +221,30 @@ export function DesignStudio3D({
     () => initialCutShare?.config || INITIAL_CONFIG,
   );
   const config = controlledConfig ?? internalConfig;
-  const setConfig = onConfigChange ?? setInternalConfig;
+  const rawSetConfig = onConfigChange ?? setInternalConfig;
+  const setConfig = useCallback<Dispatch<SetStateAction<ConfiguratorState>>>(
+    (action) => {
+      rawSetConfig((prev) => {
+        const next = typeof action === 'function' ? action(prev) : action;
+        if (next.hasPiece === undefined) {
+          if (!prev.hasPiece) {
+            const isViewOnly =
+              next.turntable !== prev.turntable ||
+              next.frozenView !== prev.frozenView ||
+              next.simple !== prev.simple ||
+              next.selectedPicketIndex !== prev.selectedPicketIndex;
+            return {
+              ...next,
+              hasPiece: !isViewOnly,
+            };
+          }
+          return { ...next, hasPiece: true };
+        }
+        return next;
+      });
+    },
+    [rawSetConfig],
+  );
   const [internalStudioTab, setInternalStudioTab] = useState<StudioTab>('3d');
   const studioTab = activeStudioTab ?? internalStudioTab;
   const setStudioTab = onStudioTabChange ?? setInternalStudioTab;
@@ -676,6 +701,7 @@ export function DesignStudio3D({
     const spec = PIECES[piece];
     setConfig((prev) => ({
       ...prev,
+      hasPiece: true,
       piece,
       width: spec.widthDef,
       height: spec.heightDef,
@@ -683,6 +709,28 @@ export function DesignStudio3D({
       style: spec.styles[0][0],
     }));
     onSelectPieceForGuide?.(piece);
+  };
+
+  const handleLoadSampleGate = () => {
+    setConfig({
+      ...SAMPLE_GATE_CONFIG,
+      hasPiece: true,
+    });
+    setStatus({
+      text: 'Loaded sample 10 ft × 6 ft gate in 3D, 2D Blueprint, and Isometric views.',
+      kind: 'ok',
+    });
+  };
+
+  const handleClearToEmptySpace = () => {
+    setConfig((prev) => ({
+      ...prev,
+      hasPiece: false,
+    }));
+    setStatus({
+      text: 'Cleared workspace to empty space in all views.',
+      kind: 'ok',
+    });
   };
 
   const handleSupplierChange = (supplierId: SupplierId) => {
@@ -817,7 +865,9 @@ export function DesignStudio3D({
     setDraftCalSpan(null);
     setSelectedPhotoDimId(null);
     setStatus({
-      text: 'Removed uploaded photo and restored your configured piece in 3D, 2D Blueprint, and Isometric View.',
+      text: config.hasPiece
+        ? 'Removed uploaded photo and restored your configured piece in 3D, 2D Blueprint, and Isometric View.'
+        : 'Removed uploaded photo and returned to empty space in 3D, 2D Blueprint, and Isometric View.',
       kind: 'ok',
     });
   };
@@ -1486,6 +1536,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadDxf = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before downloading DXF.',
+        kind: 'warn',
+      });
+      return;
+    }
     const { content, entityCount, widthIn, heightIn } = generateCutDxf(config);
     const blob = new Blob([content], { type: 'application/dxf' });
     downloadBlob(blob, `rays-ironworks-${config.piece}-cut.dxf`);
@@ -1496,6 +1553,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadStl = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before downloading STL.',
+        kind: 'warn',
+      });
+      return;
+    }
     if (!sceneRef.current || webglFailed) {
       setStatus({
         text: '3D model STL export requires the 3D scene to be active.',
@@ -1617,6 +1681,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadPdf = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before downloading PDF.',
+        kind: 'warn',
+      });
+      return;
+    }
     const blob = generateCutSpecPdf(config);
     downloadBlob(blob, `rays-ironworks-${config.piece}-spec.pdf`);
     setStatus({
@@ -1632,6 +1703,13 @@ export function DesignStudio3D({
   };
 
   const handleGenerateShareLink = async (fmt: CutShareFormat = shareFormat) => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before generating a cut link.',
+        kind: 'warn',
+      });
+      return '';
+    }
     const url = await encodeCutShareUrl(config, fmt);
     setShareUrl(url);
     setShareCopied(false);
@@ -1657,6 +1735,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadBlueprint = () => {
+    if (!config.hasPiece && !uploadedPhoto) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before saving the blueprint.',
+        kind: 'warn',
+      });
+      return;
+    }
     const bp = blueprintCanvasRef.current;
     if (!bp) return;
     drawBlueprint(bp, config, uploadedPhoto);
@@ -1678,6 +1763,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadTechnicalPng = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before saving technical drawing.',
+        kind: 'warn',
+      });
+      return;
+    }
     const c = techCanvasRef.current;
     if (!c) return;
     drawTechnicalDrawing(c, config);
@@ -1692,6 +1784,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadTechnicalPdf = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before saving technical drawing PDF.',
+        kind: 'warn',
+      });
+      return;
+    }
     const c = techCanvasRef.current;
     if (!c) return;
     drawTechnicalDrawing(c, config);
@@ -1707,6 +1806,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadIsometricPng = () => {
+    if (!config.hasPiece && !uploadedPhoto) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before saving isometric view.',
+        kind: 'warn',
+      });
+      return;
+    }
     const c = isoCanvasRef.current;
     if (!c) return;
     drawIsometricBlueprint(c, config, uploadedPhoto);
@@ -1728,6 +1834,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadIsometricPdf = () => {
+    if (!config.hasPiece && !uploadedPhoto) {
+      setStatus({
+        text: 'No piece configured yet. Select a piece type or click "Load sample gate" before saving isometric PDF.',
+        kind: 'warn',
+      });
+      return;
+    }
     const c = isoCanvasRef.current;
     if (!c) return;
     drawIsometricBlueprint(c, config, uploadedPhoto);
@@ -1752,6 +1865,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadCutListPng = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No pieces yet. Select a piece type or click "Load sample gate" before downloading the schematic PNG.',
+        kind: 'warn',
+      });
+      return;
+    }
     const c = cutListCanvasRef.current;
     if (!c) return;
     drawMaterialCutListSchematic(c, config);
@@ -1769,6 +1889,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadCutListPdf = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No pieces yet. Select a piece type or click "Load sample gate" before downloading the cut list PDF.',
+        kind: 'warn',
+      });
+      return;
+    }
     const c = cutListCanvasRef.current;
     if (!c) return;
     drawMaterialCutListSchematic(c, config);
@@ -1787,6 +1914,13 @@ export function DesignStudio3D({
   };
 
   const handleDownloadCutListCsv = () => {
+    if (!config.hasPiece) {
+      setStatus({
+        text: 'No pieces yet. Select a piece type or click "Load sample gate" before exporting the cut list CSV.',
+        kind: 'warn',
+      });
+      return;
+    }
     const escapeCsv = (val: string) =>
       `"${String(val).replace(/"/g, '""')}"`;
     const headers = [
@@ -1947,31 +2081,57 @@ export function DesignStudio3D({
         </div>
       </div>
 
-      {/* Piece Type Selector Bar */}
-      <div
-        className="flex flex-wrap gap-2 py-4 border-b border-[#2a2a2e]"
-        role="tablist"
-        aria-label="Piece type"
-      >
-        {PIECE_ORDER.map((key) => {
-          const active = config.piece === key;
-          return (
+      {/* Piece Type Selector Bar with Load Sample Gate and Empty Space controls */}
+      <div className="flex flex-wrap items-center justify-between gap-3 py-4 border-b border-[#2a2a2e]">
+        <div
+          className="flex flex-wrap items-center gap-2"
+          role="tablist"
+          aria-label="Piece type"
+        >
+          {PIECE_ORDER.map((key) => {
+            const active = Boolean(config.hasPiece && config.piece === key);
+            return (
+              <button
+                key={key}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                onClick={() => handlePieceChange(key)}
+                className={`font-display uppercase tracking-[0.06em] text-sm px-4 py-2 rounded-lg border transition-colors cursor-pointer whitespace-nowrap ${
+                  active
+                    ? 'bg-[#c9883d] text-[#141210] border-[#c9883d] font-semibold'
+                    : 'bg-[#141416] text-[#cfc9bf] border-[#2a2a2e] hover:border-[#c9883d]/60 hover:text-[#f2efe8]'
+                }`}
+              >
+                {PIECES[key].label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Load sample gate & Clear to empty space */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={handleLoadSampleGate}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-[#c9883d] bg-[#1c1a16] hover:bg-[#c9883d] hover:text-[#141210] text-[#e8a317] font-semibold text-xs sm:text-sm transition-colors cursor-pointer shadow-sm whitespace-nowrap"
+            title="Load default 10 ft x 6 ft gate in 3D, 2D Blueprint, and Isometric views"
+          >
+            <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
+            Load sample gate
+          </button>
+          {config.hasPiece && (
             <button
-              key={key}
               type="button"
-              role="tab"
-              aria-selected={active}
-              onClick={() => handlePieceChange(key)}
-              className={`font-display uppercase tracking-[0.06em] text-sm px-4 py-2 rounded-lg border transition-colors cursor-pointer whitespace-nowrap ${
-                active
-                  ? 'bg-[#c9883d] text-[#141210] border-[#c9883d] font-semibold'
-                  : 'bg-[#141416] text-[#cfc9bf] border-[#2a2a2e] hover:border-[#c9883d]/60 hover:text-[#f2efe8]'
-              }`}
+              onClick={handleClearToEmptySpace}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#3a3a40] bg-[#141416] hover:border-[#f87171] hover:text-[#fca5a5] text-[#cfc9bf] font-medium text-xs sm:text-sm transition-colors cursor-pointer whitespace-nowrap"
+              title="Clear piece and start with empty space in all views"
             >
-              {PIECES[key].label}
+              <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+              Empty space
             </button>
-          );
-        })}
+          )}
+        </div>
       </div>
 
       {/* NEW Technical Drawing Tab — Placed Directly Under Piece-Type Selector Bar */}
@@ -4176,30 +4336,50 @@ export function DesignStudio3D({
                       Material Cut List &amp; Assembly Schematic
                     </h4>
                     <p className="text-[11px] text-[#bae6fd] m-0 mt-0.5">
-                      Exploded callout schematic (A–{detailedCutList.items[detailedCutList.items.length - 1]?.tag || 'Z'}) paired with every steel profile, panel, cap, leaf, hardware piece, and finish consumable needed to build this {PIECES[config.piece].label.toLowerCase()}.
+                      {!config.hasPiece
+                        ? 'No pieces yet. Select a piece type (Gate, Railing, etc.) or click "Load sample gate" to generate your itemized cut list and assembly schematic.'
+                        : `Exploded callout schematic (A–${detailedCutList.items[detailedCutList.items.length - 1]?.tag || 'Z'}) paired with every steel profile, panel, cap, leaf, hardware piece, and finish consumable needed to build this ${PIECES[config.piece].label.toLowerCase()}.`}
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       type="button"
+                      disabled={!config.hasPiece}
                       onClick={handleDownloadCutListPng}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#c9883d] hover:bg-[#e8a317] text-[#141210] font-bold text-xs cursor-pointer"
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold ${
+                        !config.hasPiece
+                          ? 'bg-[#c9883d]/40 text-[#141210]/60 cursor-not-allowed'
+                          : 'bg-[#c9883d] hover:bg-[#e8a317] text-[#141210] cursor-pointer'
+                      }`}
+                      title={!config.hasPiece ? 'Configure a piece first or click "Load sample gate" to export' : undefined}
                     >
                       <Download className="w-3.5 h-3.5" aria-hidden="true" />
                       Schematic PNG
                     </button>
                     <button
                       type="button"
+                      disabled={!config.hasPiece}
                       onClick={handleDownloadCutListPdf}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#e8a317]/70 bg-[#101c33] hover:border-[#e8a317] text-[#e8a317] font-bold text-xs cursor-pointer"
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-bold ${
+                        !config.hasPiece
+                          ? 'border-[#e8a317]/30 bg-[#101c33]/40 text-[#e8a317]/40 cursor-not-allowed'
+                          : 'border-[#e8a317]/70 bg-[#101c33] hover:border-[#e8a317] text-[#e8a317] cursor-pointer'
+                      }`}
+                      title={!config.hasPiece ? 'Configure a piece first or click "Load sample gate" to export' : undefined}
                     >
                       <FileText className="w-3.5 h-3.5" aria-hidden="true" />
                       Cut List PDF
                     </button>
                     <button
                       type="button"
+                      disabled={!config.hasPiece}
                       onClick={handleDownloadCutListCsv}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-white/25 bg-[#0a1830] hover:border-[#7dd3fc] text-[#bae6fd] font-bold text-xs cursor-pointer"
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-bold ${
+                        !config.hasPiece
+                          ? 'border-white/10 bg-[#0a1830]/40 text-[#bae6fd]/40 cursor-not-allowed'
+                          : 'border-white/25 bg-[#0a1830] hover:border-[#7dd3fc] text-[#bae6fd] cursor-pointer'
+                      }`}
+                      title={!config.hasPiece ? 'Configure a piece first or click "Load sample gate" to export' : undefined}
                     >
                       <Download className="w-3.5 h-3.5" aria-hidden="true" />
                       Export CSV
@@ -4258,8 +4438,9 @@ export function DesignStudio3D({
                 <div className="rounded-lg border border-white/20 bg-[#08162b] overflow-hidden">
                   <div className="px-3 py-2 border-b border-white/15 flex flex-wrap items-center justify-between gap-2 bg-[#0a1c36]">
                     <span className="font-display uppercase tracking-[0.08em] text-xs text-[#e8a317]">
-                      Complete Itemized Build Cut List —{' '}
-                      {PIECES[config.piece].label} ({detailedCutList.finishSpec})
+                      {!config.hasPiece
+                        ? 'Itemized Build Cut List — Empty Workspace (No pieces active)'
+                        : `Complete Itemized Build Cut List — ${PIECES[config.piece].label} (${detailedCutList.finishSpec})`}
                     </span>
                     <span className="text-[11px] text-[#93c5fd]">
                       Tags match exploded callout balloons on schematic above
@@ -4280,39 +4461,52 @@ export function DesignStudio3D({
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/10">
-                        {detailedCutList.items.map((row) => (
-                          <tr
-                            key={row.tag}
-                            className="hover:bg-white/[0.04] transition-colors"
-                          >
-                            <td className="py-2 px-2.5">
-                              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#e8a317] text-[#101012] font-bold text-[11px]">
-                                {row.tag}
-                              </span>
-                            </td>
-                            <td className="py-2 px-2.5 text-[#7dd3fc] whitespace-nowrap font-medium">
-                              {row.category}
-                            </td>
-                            <td className="py-2 px-2.5 text-white font-semibold">
-                              {row.part}
-                            </td>
-                            <td className="py-2 px-2.5 text-[#e2e8f0]">
-                              {row.stockProfile}
-                            </td>
-                            <td className="py-2 px-2.5 text-[#fef3c7] font-semibold whitespace-nowrap tabular-nums">
-                              {row.qty}
-                            </td>
-                            <td className="py-2 px-2.5 text-white whitespace-nowrap tabular-nums">
-                              {row.cutLength}
-                            </td>
-                            <td className="py-2 px-2.5 text-[#7dd3fc] font-semibold whitespace-nowrap tabular-nums">
-                              {row.totalMeasure}
-                            </td>
-                            <td className="py-2 px-2.5 text-[#cbd5e1]">
-                              {row.notes}
+                        {detailedCutList.items.length === 0 ? (
+                          <tr>
+                            <td colSpan={8} className="py-8 px-4 text-center text-[#93c5fd]">
+                              <div className="max-w-md mx-auto space-y-2">
+                                <p className="font-semibold text-sm text-[#bae6fd]">No pieces yet</p>
+                                <p className="text-xs text-[#7dd3fc]">
+                                  Select a piece from the controls above or click &ldquo;Load sample gate&rdquo; to populate the itemized cut lines, stock profiles, and fabrication notes.
+                                </p>
+                              </div>
                             </td>
                           </tr>
-                        ))}
+                        ) : (
+                          detailedCutList.items.map((row) => (
+                            <tr
+                              key={row.tag}
+                              className="hover:bg-white/[0.04] transition-colors"
+                            >
+                              <td className="py-2 px-2.5">
+                                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#e8a317] text-[#101012] font-bold text-[11px]">
+                                  {row.tag}
+                                </span>
+                              </td>
+                              <td className="py-2 px-2.5 text-[#7dd3fc] whitespace-nowrap font-medium">
+                                {row.category}
+                              </td>
+                              <td className="py-2 px-2.5 text-white font-semibold">
+                                {row.part}
+                              </td>
+                              <td className="py-2 px-2.5 text-[#e2e8f0]">
+                                {row.stockProfile}
+                              </td>
+                              <td className="py-2 px-2.5 text-[#fef3c7] font-semibold whitespace-nowrap tabular-nums">
+                                {row.qty}
+                              </td>
+                              <td className="py-2 px-2.5 text-white whitespace-nowrap tabular-nums">
+                                {row.cutLength}
+                              </td>
+                              <td className="py-2 px-2.5 text-[#7dd3fc] font-semibold whitespace-nowrap tabular-nums">
+                                {row.totalMeasure}
+                              </td>
+                              <td className="py-2 px-2.5 text-[#cbd5e1]">
+                                {row.notes}
+                              </td>
+                            </tr>
+                          ))
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -4326,11 +4520,13 @@ export function DesignStudio3D({
                   ? 'Mode: Draw — sketch directly with pen, mouse, or touch'
                   : uploadedPhoto
                     ? 'Tip: Drag to orbit & scroll to zoom the 3D photo relief'
-                    : interactionMode === 'accent'
-                      ? 'Mode: Place Accents — tap a picket, then pick Knuckle / Emblem / Leaf'
-                      : interactionMode === 'select'
-                        ? 'Mode: Select — tap a part to color or tap a picket'
-                        : 'Tip: Drag to rotate · Tap any part to select for Touch-to-Color'}
+                    : !config.hasPiece
+                      ? 'Workspace: Empty space — select a piece above or click "Load sample gate" to begin'
+                      : interactionMode === 'accent'
+                        ? 'Mode: Place Accents — tap a picket, then pick Knuckle / Emblem / Leaf'
+                        : interactionMode === 'select'
+                          ? 'Mode: Select — tap a part to color or tap a picket'
+                          : 'Tip: Drag to rotate · Tap any part to select for Touch-to-Color'}
               </div>
             )}
             {is3DViewportActive && !webglFailed && uploadedPhoto && (
@@ -4390,7 +4586,9 @@ export function DesignStudio3D({
           <p className="font-display tracking-[0.05em] text-[#e8a317] text-base sm:text-lg m-0 tabular-nums">
             {uploadedPhoto && (is3DViewportActive || is2DView || isIsoView)
               ? `Uploaded photo — 3D interpretation · ${uploadedPhoto.fileName} (not a true scan; the back side is not captured)`
-              : describeConfig(config)}
+              : !config.hasPiece
+                ? 'Empty workspace — Select a piece above or click "Load sample gate" to begin'
+                : describeConfig(config)}
           </p>
 
           {/* Viewport Playback & Freeze View Controls */}
@@ -5806,15 +6004,22 @@ export function DesignStudio3D({
           <div className="pt-3 border-t border-[#2a2a2e]">
             <button
               type="button"
-              onClick={() =>
+              onClick={() => {
+                if (!config.hasPiece && !uploadedPhoto) {
+                  setStatus({
+                    text: 'No piece configured yet. Select a piece type (Gate, Railing, etc.) or click "Load sample gate" first to include it in your quote.',
+                    kind: 'warn',
+                  });
+                  return;
+                }
                 onUseInQuote({
-                  quoteType: pieceSpec.qType,
-                  size: dimsText(config),
-                  descriptionLine: `Configured in the 3D studio: ${describeConfig(
-                    config,
-                  )}.`,
-                })
-              }
+                  quoteType: uploadedPhoto ? 'Custom Metalwork' : pieceSpec.qType,
+                  size: uploadedPhoto ? 'From uploaded photo' : dimsText(config),
+                  descriptionLine: uploadedPhoto
+                    ? `Configured from uploaded photo (${uploadedPhoto.fileName}): 3D relief model interpretation.`
+                    : `Configured in the 3D studio: ${describeConfig(config)}.`,
+                });
+              }}
               className="w-full py-3 px-4 rounded-lg bg-[#c9883d] hover:bg-[#e8a317] text-[#141210] font-bold text-base transition-colors cursor-pointer"
             >
               Use This in My Quote

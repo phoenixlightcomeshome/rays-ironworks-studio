@@ -484,6 +484,7 @@ export interface SignPictureData {
 }
 
 export interface ConfiguratorState {
+  hasPiece?: boolean;
   piece: PieceType;
   sizeMode: SizeModeType;
   width: number;
@@ -1015,6 +1016,7 @@ export const CUSTOM_COLOR_SWATCHES: Array<{ label: string; hex: string }> = [
 ];
 
 export const INITIAL_CONFIG: ConfiguratorState = {
+  hasPiece: false,
   piece: 'gate',
   sizeMode: 'standard',
   width: 10,
@@ -1076,6 +1078,15 @@ export const INITIAL_CONFIG: ConfiguratorState = {
   signPicture: null,
   turntable: true,
   simple: false,
+};
+
+export const SAMPLE_GATE_CONFIG: ConfiguratorState = {
+  ...INITIAL_CONFIG,
+  hasPiece: true,
+  piece: 'gate',
+  width: 10,
+  height: 6,
+  depth: 8,
 };
 
 export function getPicketLayoutStats(state: ConfiguratorState) {
@@ -1209,6 +1220,9 @@ export function dimsText(state: ConfiguratorState): string {
 }
 
 export function describeConfig(state: ConfiguratorState): string {
+  if (state.hasPiece === false) {
+    return 'Empty workspace — no piece configured';
+  }
   const pieceSpec = PIECES[state.piece];
   const styleMatch = pieceSpec.styles.find((s) => s[0] === state.style);
   const styleName = styleMatch ? styleMatch[1] : state.style;

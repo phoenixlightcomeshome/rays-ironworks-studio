@@ -2682,6 +2682,7 @@ export class IronworksScene {
 
   public update(nextState: ConfiguratorState) {
     const pieceChanged =
+      Boolean(nextState.hasPiece) !== Boolean(this.currentState.hasPiece) ||
       nextState.piece !== this.currentState.piece ||
       nextState.sizeMode !== this.currentState.sizeMode;
     const simpleChanged = nextState.simple !== this.currentState.simple;
@@ -2880,6 +2881,15 @@ export class IronworksScene {
 
   private buildPiece(state: ConfiguratorState, reframe = true) {
     this.disposeGroup(this.modelGroup);
+    if (!state.hasPiece) {
+      this.modelGroup.rotation.y = 0;
+      if (reframe && !state.frozenView) {
+        this.camera.position.set(10, 7, 14);
+        this.controls.target.set(0, 1.5, 0);
+        this.controls.update();
+      }
+      return;
+    }
     const getArea = this.getAreaMatResolver(state);
 
     if (state.piece === 'gate') this.buildGate(state, getArea);
